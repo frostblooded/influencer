@@ -60,12 +60,19 @@ gdscript/warnings/confusable_local_usage=2
 
 [display]
 
-window/size/viewport_width=800
-window/size/viewport_height=576
+window/size/viewport_width=576
+window/size/viewport_height=800
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_height"
+window/stretch/scale_mode="integer"
 
 [editor_plugins]
 
 enabled=PackedStringArray()
+
+[gui]
+
+theme/custom_font="res://font/Witch Magic.ttf"
 
 [input]
 

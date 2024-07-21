@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://vjq83572qbuv"]
+
+[ext_resource type="Script" path="res://scripts/cell.gd" id="1_suw5m"]
+[ext_resource type="Texture2D" uid="uid://dgdlmbqptppwa" path="res://assets/soldier.png" id="2_muem0"]
+
+[sub_resource type="Gradient" id="Gradient_rvejq"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.466667, 0.462745, 0.701961, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_quw8c"]
+gradient = SubResource("Gradient_rvejq")
+
+[sub_resource type="Gradient" id="Gradient_yc5u7"]
+offsets = PackedFloat32Array(0.99)
+colors = PackedColorArray(0.607843, 0.52549, 0.741176, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hmhum"]
+gradient = SubResource("Gradient_yc5u7")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v7xei"]
+size = Vector2(96, 88)
+
+[node name="GridCell" type="Node2D" node_paths=PackedStringArray("area_2d", "default_sprite_2d", "hovered_sprite_2d")]
+script = ExtResource("1_suw5m")
+area_2d = NodePath("Area2D")
+default_sprite_2d = NodePath("Sprite2D")
+hovered_sprite_2d = NodePath("HoveredSprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.13687e-13, 0)
+scale = Vector2(0.375, 88)
+texture = SubResource("GradientTexture1D_quw8c")
+
+[node name="HoveredSprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.375, 88)
+texture = SubResource("GradientTexture1D_hmhum")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_v7xei")
+
+[node name="Soldier" type="Sprite2D" parent="."]
+position = Vector2(-1.90735e-06, 0)
+scale = Vector2(4, 3.66667)
+texture = ExtResource("2_muem0")
