@@ -5,6 +5,7 @@ extends Node2D
 @export var cell_scene: PackedScene
 @export var cell_x_diff: int = 112
 @export var cell_y_diff: int = 112
+@export var spawners: Array[Spawner]
 
 var _cells_cache: Array[Array] = []
 
@@ -37,3 +38,10 @@ func _ready() -> void:
 			
 			cell_instance.position = Vector2(col_idx * cell_x_diff, row_idx * cell_y_diff)
 			add_child(cell_instance)
+	
+	for spawner: Spawner in spawners:
+		var cell: Cell = _cells_cache[spawner.y][spawner.x]
+		assert(cell)
+
+		var unit: Node = spawner.unit_scene.instantiate()
+		cell.add_to_container(unit)

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bosldgi81a7pv"]
+
+[ext_resource type="Texture2D" uid="uid://dgdlmbqptppwa" path="res://assets/soldier.png" id="1_b1kv1"]
+
+[node name="Unit" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.90735e-06, 1.90735e-06)
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("1_b1kv1")
