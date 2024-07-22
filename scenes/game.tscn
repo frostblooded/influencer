@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvvvodfer4c1a"]
+[gd_scene load_steps=6 format=3 uid="uid://cvvvodfer4c1a"]
 
 [ext_resource type="PackedScene" uid="uid://vjq83572qbuv" path="res://scenes/grid_cell.tscn" id="1_jw3tg"]
+[ext_resource type="Script" path="res://scripts/grid.gd" id="2_g36i2"]
 [ext_resource type="PackedScene" uid="uid://30mydrptkp5p" path="res://scenes/element_cell.tscn" id="3_au48s"]
 
 [sub_resource type="Gradient" id="Gradient_nvnxt"]
@@ -74,81 +75,6 @@ size_flags_horizontal = 8
 text = "+1 loyalty
 +5 green influence"
 
-[node name="GridCell" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(64, 744)
-
-[node name="GridCell2" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(176, 744)
-
-[node name="GridCell3" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(288, 744)
-
-[node name="GridCell4" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(400, 744)
-
-[node name="GridCell5" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(512, 744)
-
-[node name="GridCell6" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(64, 640)
-
-[node name="GridCell7" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(176, 640)
-
-[node name="GridCell8" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(288, 640)
-
-[node name="GridCell9" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(400, 640)
-
-[node name="GridCell10" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(512, 640)
-
-[node name="GridCell11" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(64, 536)
-
-[node name="GridCell12" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(176, 536)
-
-[node name="GridCell13" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(288, 536)
-
-[node name="GridCell14" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(400, 536)
-
-[node name="GridCell15" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(512, 536)
-
-[node name="GridCell16" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(64, 432)
-
-[node name="GridCell17" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(176, 432)
-
-[node name="GridCell18" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(288, 432)
-
-[node name="GridCell19" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(400, 432)
-
-[node name="GridCell20" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(512, 432)
-
-[node name="GridCell21" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(64, 328)
-
-[node name="GridCell22" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(176, 328)
-
-[node name="GridCell23" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(288, 328)
-
-[node name="GridCell24" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(400, 328)
-
-[node name="GridCell25" parent="." instance=ExtResource("1_jw3tg")]
-position = Vector2(512, 328)
-
 [node name="ElementCell" parent="." instance=ExtResource("3_au48s")]
 position = Vector2(64, 192)
 
@@ -163,3 +89,9 @@ position = Vector2(400, 192)
 
 [node name="ElementCell5" parent="." instance=ExtResource("3_au48s")]
 position = Vector2(512, 192)
+
+[node name="Grid" type="Node2D" parent="."]
+position = Vector2(64, 320)
+script = ExtResource("2_g36i2")
+cell_scene = ExtResource("1_jw3tg")
+cell_y_diff = 104

@@ -1,8 +1,13 @@
+class_name Cell
 extends Node2D
 
 @export var area_2d: Area2D
 @export var default_sprite_2d: Sprite2D
 @export var hovered_sprite_2d: Sprite2D
+@export var top_cell: Cell
+@export var right_cell: Cell
+@export var bottom_cell: Cell
+@export var left_cell: Cell
 
 func _ready() -> void:
 	Helpers.safe_connect(area_2d.mouse_entered, on_mouse_entered)
