@@ -15,6 +15,10 @@ run/main_scene="res://scenes/game.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+EventBus="*res://scripts/autoloads/event_bus.gd"
+
 [debug]
 
 gdscript/warnings/unassigned_variable=2
@@ -72,6 +76,7 @@ enabled=PackedStringArray()
 
 [gui]
 
+theme/custom="res://theme.tres"
 theme/custom_font="res://font/Witch Magic.ttf"
 
 [input]

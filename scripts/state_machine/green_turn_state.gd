@@ -1,0 +1,2 @@
+class_name GreenTurnState
+extends State

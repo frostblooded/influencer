@@ -1,3 +1,4 @@
+class_name Grid
 extends Node2D
 
 @export var width: int = 5
@@ -37,6 +38,9 @@ func _ready() -> void:
 				left_neighbor.right_cell = cell_instance
 			
 			cell_instance.position = Vector2(col_idx * cell_x_diff, row_idx * cell_y_diff)
+			cell_instance.grid = self
+			cell_instance.grid_x = col_idx
+			cell_instance.grid_y = row_idx
 			add_child(cell_instance)
 	
 	for spawner: Spawner in spawners:

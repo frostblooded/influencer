@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://vjq83572qbuv"]
+[gd_scene load_steps=9 format=3 uid="uid://vjq83572qbuv"]
 
 [ext_resource type="Script" path="res://scripts/cell.gd" id="1_suw5m"]
 
@@ -19,11 +19,19 @@ gradient = SubResource("Gradient_yc5u7")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v7xei"]
 size = Vector2(96, 88)
 
-[node name="GridCell" type="Node2D" node_paths=PackedStringArray("area_2d", "default_sprite_2d", "hovered_sprite_2d", "_container")]
+[sub_resource type="Gradient" id="Gradient_blwba"]
+offsets = PackedFloat32Array(0.00325733)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_j6eis"]
+gradient = SubResource("Gradient_blwba")
+
+[node name="GridCell" type="Node2D" node_paths=PackedStringArray("area_2d", "default_sprite_2d", "hovered_sprite_2d", "debug_sprite_2d", "_container")]
 script = ExtResource("1_suw5m")
 area_2d = NodePath("Area2D")
 default_sprite_2d = NodePath("Sprite2D")
 hovered_sprite_2d = NodePath("HoveredSprite2D")
+debug_sprite_2d = NodePath("DebugSprite2D")
 _container = NodePath("Container")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -41,3 +49,9 @@ texture = SubResource("GradientTexture1D_hmhum")
 shape = SubResource("RectangleShape2D_v7xei")
 
 [node name="Container" type="Node2D" parent="."]
+
+[node name="DebugSprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-40, -40)
+scale = Vector2(0.09375, 24.5)
+texture = SubResource("GradientTexture1D_j6eis")
