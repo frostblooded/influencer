@@ -8,14 +8,14 @@ extends Node2D
 
 @export var _container: Node2D
 
-var top_cell: Cell
-var right_cell: Cell
-var bottom_cell: Cell
-var left_cell: Cell
+class Neighbor:
+	var cell: Cell
+	var direction: Enums.Direction = Enums.Direction.None
+
+var neighbors: Array[Neighbor]
 
 var grid: Grid
-var grid_x: int = -1
-var grid_y: int = -1
+var grid_coordinates: Vector2
 
 func _ready() -> void:
 	Helpers.safe_connect(area_2d.mouse_entered, on_mouse_entered)
@@ -55,4 +55,4 @@ func hide_debug() -> void:
 	debug_sprite_2d.hide()
 
 func _to_string() -> String:
-	return "({}, {})".format([grid_y, grid_x], "{}")
+	return "({}, {})".format([grid_coordinates.x, grid_coordinates.y], "{}")

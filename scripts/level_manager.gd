@@ -9,4 +9,4 @@ func _enter_tree() -> void:
 func update_unit_moves() -> void:
     for unit_node: Node in get_tree().get_nodes_in_group("units"):
         var unit: Unit = unit_node as Unit
-        unit.update_moves()
+        unit.update_actions()
