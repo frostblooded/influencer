@@ -1,6 +1,8 @@
 class_name Unit
 extends PlaceableObject
 
+@export var move_action_texture: Texture2D
+
 enum Action {
     None,
     Move
@@ -36,6 +38,8 @@ func update_actions() -> void:
     if can_move_towards_enemy():
         move_towards_enemy()
     
+    cell.set_action_sprite_2d(move_action_texture, planned_action_direction)
+    
     print("Updated planned action for ", self, " is ", Action.find_key(planned_action))
     print("Updated planned move target for ", self, " is ", planned_move_target)
     print("Updated planned action direction for ", self, " is ", Enums.Direction.find_key(planned_action_direction))
@@ -51,7 +55,6 @@ func move_towards_enemy() -> void:
             closest_grid_enemy = grid_enemy
 
     if closest_grid_enemy and closest_grid_enemy.distance > 1:
-        assert(!closest_grid_enemy.path.is_empty())
         planned_action = Action.Move
         planned_move_target = closest_grid_enemy.path[0]
         planned_action_direction = closest_grid_enemy.direction

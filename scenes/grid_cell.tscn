@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://vjq83572qbuv"]
+[gd_scene load_steps=10 format=3 uid="uid://vjq83572qbuv"]
 
-[ext_resource type="Script" path="res://scripts/cell.gd" id="1_suw5m"]
+[ext_resource type="Script" path="res://scripts/grid_cell.gd" id="1_8mbga"]
+[ext_resource type="Texture2D" uid="uid://biumxxayrtuu5" path="res://assets/arrow.png" id="2_4y6ku"]
 
 [sub_resource type="Gradient" id="Gradient_rvejq"]
 offsets = PackedFloat32Array(0)
@@ -26,8 +27,12 @@ colors = PackedColorArray(1, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_j6eis"]
 gradient = SubResource("Gradient_blwba")
 
-[node name="GridCell" type="Node2D" node_paths=PackedStringArray("area_2d", "default_sprite_2d", "hovered_sprite_2d", "debug_sprite_2d", "_container")]
-script = ExtResource("1_suw5m")
+[node name="GridCell" type="Node2D" node_paths=PackedStringArray("_top_action_sprite_2d", "_right_action_sprite_2d", "_bottom_action_sprite_2d", "_left_action_sprite_2d", "area_2d", "default_sprite_2d", "hovered_sprite_2d", "debug_sprite_2d", "_container")]
+script = ExtResource("1_8mbga")
+_top_action_sprite_2d = NodePath("TopActionSprite2DContainer")
+_right_action_sprite_2d = NodePath("RightActionSprite2DContainer")
+_bottom_action_sprite_2d = NodePath("BottomActionSprite2DContainer")
+_left_action_sprite_2d = NodePath("LeftActionSprite2DContainer")
 area_2d = NodePath("Area2D")
 default_sprite_2d = NodePath("Sprite2D")
 hovered_sprite_2d = NodePath("HoveredSprite2D")
@@ -55,3 +60,30 @@ visible = false
 position = Vector2(-40, -40)
 scale = Vector2(0.09375, 24.5)
 texture = SubResource("GradientTexture1D_j6eis")
+
+[node name="TopActionSprite2DContainer" type="Sprite2D" parent="."]
+z_index = 10
+position = Vector2(0, -44)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_4y6ku")
+
+[node name="RightActionSprite2DContainer" type="Sprite2D" parent="."]
+z_index = 10
+position = Vector2(48, 0)
+rotation = 1.57079
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_4y6ku")
+
+[node name="BottomActionSprite2DContainer" type="Sprite2D" parent="."]
+z_index = 10
+position = Vector2(0, 44)
+rotation = -3.14159
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_4y6ku")
+
+[node name="LeftActionSprite2DContainer" type="Sprite2D" parent="."]
+z_index = 10
+position = Vector2(-48, 0)
+rotation = -1.57079
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_4y6ku")
