@@ -1,6 +1,6 @@
 class_name Spawner
 extends Resource
 
-@export var x: int = 0
-@export var y: int = 0
+@export var grid_coordinates: Vector2
+@export var faction: Enums.Faction = Enums.Faction.None
 @export var unit_scene: PackedScene

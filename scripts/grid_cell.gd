@@ -16,6 +16,9 @@ func set_action_sprite_2d(texture: Texture2D, direction: Enums.Direction) -> voi
     action_sprite_2d.texture = texture
     action_sprite_2d.show()
 
+func reset_action_sprite_2d() -> void:
+    hide_all_action_sprite_2ds()
+
 func hide_all_action_sprite_2ds() -> void:
     _top_action_sprite_2d.hide()
     _right_action_sprite_2d.hide()

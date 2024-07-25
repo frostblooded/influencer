@@ -6,6 +6,7 @@
 
 [node name="Unit" type="Node2D" groups=["units"]]
 script = ExtResource("1_evil8")
+faction = null
 move_action_texture = ExtResource("2_41fv4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvvvodfer4c1a"]
+[gd_scene load_steps=12 format=3 uid="uid://cvvvodfer4c1a"]
 
+[ext_resource type="Script" path="res://scripts/end_turn_button.gd" id="1_ht7q4"]
 [ext_resource type="PackedScene" uid="uid://vjq83572qbuv" path="res://scenes/grid_cell.tscn" id="1_jw3tg"]
 [ext_resource type="Script" path="res://scripts/grid.gd" id="2_g36i2"]
 [ext_resource type="PackedScene" uid="uid://30mydrptkp5p" path="res://scenes/element_cell.tscn" id="3_au48s"]
@@ -16,14 +17,14 @@ gradient = SubResource("Gradient_nvnxt")
 
 [sub_resource type="Resource" id="Resource_b7lf8"]
 script = ExtResource("4_xwmaw")
-x = 0
-y = 1
+grid_coordinates = Vector2(0, 2)
+faction = 1
 unit_scene = ExtResource("5_05h2y")
 
 [sub_resource type="Resource" id="Resource_wu7mj"]
 script = ExtResource("4_xwmaw")
-x = 0
-y = 3
+grid_coordinates = Vector2(4, 2)
+faction = 2
 unit_scene = ExtResource("5_05h2y")
 
 [node name="Game" type="Node2D"]
@@ -91,12 +92,14 @@ text = "+1 red loyalty
 +5 red influence"
 
 [node name="EndTurnButton" type="Button" parent="CanvasLayer/Control/MarginContainer"]
-custom_minimum_size = Vector2(0, 80)
+custom_minimum_size = Vector2(180, 70)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-theme_override_font_sizes/font_size = 30
-text = "Next turn"
+focus_mode = 0
+theme_override_font_sizes/font_size = 25
+text = "End turn"
+script = ExtResource("1_ht7q4")
 
 [node name="ElementCell" parent="." instance=ExtResource("3_au48s")]
 position = Vector2(64, 192)

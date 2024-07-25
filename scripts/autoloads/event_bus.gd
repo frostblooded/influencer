@@ -1,3 +1,3 @@
 extends Node
 
-signal on_update_unit_moves
+signal on_end_turn_button_pressed

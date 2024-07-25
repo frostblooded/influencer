@@ -12,6 +12,10 @@ class Neighbor:
 	var cell: Cell
 	var direction: Enums.Direction = Enums.Direction.None
 
+	func _init(new_cell: Cell, new_direction: Enums.Direction) -> void:
+		cell = new_cell
+		direction = new_direction
+
 var neighbors: Array[Neighbor]
 
 var grid: Grid
@@ -40,6 +44,12 @@ func add_to_container(node: Node) -> void:
 	placeable_object.cell = self
 	_container.add_child(placeable_object)
 
+func empty_container() -> void:
+	assert(_container.get_child_count() == 1)
+	var placeable_object: PlaceableObject = _container.get_child(0)
+	placeable_object.cell = null
+	_container.remove_child(placeable_object)
+
 func peek_container() -> PlaceableObject:
 	assert(_container.get_child_count() <= 1)
 
@@ -47,6 +57,13 @@ func peek_container() -> PlaceableObject:
 		return _container.get_child(0)
 	else:
 		return null
+
+func get_neighbor_cell_from_direction(direction: Enums.Direction) -> Cell:
+	for neighbor: Neighbor in neighbors:
+		if neighbor.direction == direction:
+			return neighbor.cell
+	
+	return null
 
 func show_debug() -> void:
 	debug_sprite_2d.show()

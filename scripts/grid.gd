@@ -29,27 +29,13 @@ func _ready() -> void:
 
 			var top_neighbor: Cell = _cells_cache[row_idx - 1][col_idx]
 			if top_neighbor:
-				var top_cell_neighbor: Cell.Neighbor = Cell.Neighbor.new()
-				top_cell_neighbor.cell = top_neighbor
-				top_cell_neighbor.direction = Enums.Direction.Top
-				cell_instance.neighbors.push_back(top_cell_neighbor)
-
-				var tops_bottom_neighbor: Cell.Neighbor = Cell.Neighbor.new()
-				tops_bottom_neighbor.cell = cell_instance
-				tops_bottom_neighbor.direction = Enums.Direction.Bottom
-				top_neighbor.neighbors.push_back(tops_bottom_neighbor)
+				cell_instance.neighbors.push_back(Cell.Neighbor.new(top_neighbor, Enums.Direction.Top))
+				top_neighbor.neighbors.push_back(Cell.Neighbor.new(cell_instance, Enums.Direction.Bottom))
 
 			var left_neighbor: Cell = _cells_cache[row_idx][col_idx - 1]
 			if left_neighbor:
-				var left_cell_neighbor: Cell.Neighbor = Cell.Neighbor.new()
-				left_cell_neighbor.cell = left_neighbor
-				left_cell_neighbor.direction = Enums.Direction.Left
-				cell_instance.neighbors.push_back(left_cell_neighbor)
-
-				var left_right_neightbor: Cell.Neighbor = Cell.Neighbor.new()
-				left_right_neightbor.cell = cell_instance
-				left_right_neightbor.direction = Enums.Direction.Right
-				left_neighbor.neighbors.push_back(left_right_neightbor)
+				cell_instance.neighbors.push_back(Cell.Neighbor.new(left_neighbor, Enums.Direction.Left))
+				left_neighbor.neighbors.push_back(Cell.Neighbor.new(cell_instance, Enums.Direction.Right))
 			
 			cell_instance.position = Vector2(col_idx * cell_x_diff, row_idx * cell_y_diff)
 			cell_instance.grid = self
@@ -57,8 +43,9 @@ func _ready() -> void:
 			add_child(cell_instance)
 	
 	for spawner: Spawner in spawners:
-		var cell: Cell = _cells_cache[spawner.y][spawner.x]
+		var cell: Cell = _cells_cache[spawner.grid_coordinates.y][spawner.grid_coordinates.x]
 		assert(cell)
 
-		var unit: Node = spawner.unit_scene.instantiate()
+		var unit: Unit = spawner.unit_scene.instantiate() as Unit
+		unit.faction = spawner.faction
 		cell.add_to_container(unit)
