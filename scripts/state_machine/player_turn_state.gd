@@ -2,6 +2,9 @@ class_name PlayerTurnState
 extends State
 
 func enter(_parent: Node) -> void:
+    if !is_inside_tree():
+        return
+
     print("Start player turn")
     Helpers.safe_connect(EventBus.on_end_turn_button_pressed, on_end_turn_button_pressed)
 

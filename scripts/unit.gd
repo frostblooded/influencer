@@ -54,7 +54,7 @@ func plan_move_towards_enemy() -> void:
         if !closest_grid_enemy or grid_enemy.distance < closest_grid_enemy.distance:
             closest_grid_enemy = grid_enemy
 
-    if closest_grid_enemy and closest_grid_enemy.distance > 1:
+    if closest_grid_enemy:
         planned_action = Action.Move
         planned_action_direction = closest_grid_enemy.direction
 
@@ -105,15 +105,21 @@ func perform_action() -> void:
     match planned_action:
         Action.Move:
             perform_move()
-        _:
-            push_error("Unit can't perform unknown action ", planned_action)
 
 func perform_move() -> void:
-    var move_goal_cell: Cell = cell.get_neighbor_cell_from_direction(planned_action_direction)
+    var other_cell: GridCell = cell.get_neighbor_cell_from_direction(planned_action_direction) as GridCell
 
-    if move_goal_cell.peek_container() != null:
-        return
+    var other_cell_containee: PlaceableObject = other_cell.peek_container()
+
+    if other_cell_containee != null:
+        var other_cell_unit: Unit = other_cell_containee as Unit
+        if other_cell_unit == null:
+            return
+        
+        other_cell_unit.queue_free()
+        other_cell.empty_container()
+        other_cell.reset_action_sprite_2d()
 
     cell.reset_action_sprite_2d()
     cell.empty_container()
-    move_goal_cell.add_to_container(self)
+    other_cell.add_to_container(self)
