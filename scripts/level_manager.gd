@@ -19,8 +19,6 @@ func on_performed_actions() -> void:
             red_count += 1
 
     if green_count == 0:
-        print("Green won!")
-        Helpers.safe_reload_current_scene(get_tree())
+        EventBus.game_victory.emit(Enums.Faction.Red)
     elif red_count == 0:
-        print("Red won!")
-        Helpers.safe_reload_current_scene(get_tree())
+        EventBus.game_victory.emit(Enums.Faction.Green)

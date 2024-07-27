@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://cvvvodfer4c1a"]
+[gd_scene load_steps=13 format=3 uid="uid://cvvvodfer4c1a"]
 
 [ext_resource type="Script" path="res://scripts/end_turn_button.gd" id="1_ht7q4"]
 [ext_resource type="PackedScene" uid="uid://vjq83572qbuv" path="res://scenes/grid_cell.tscn" id="1_jw3tg"]
+[ext_resource type="Script" path="res://scripts/victory_screen_panel.gd" id="2_4747v"]
 [ext_resource type="Script" path="res://scripts/grid.gd" id="2_g36i2"]
 [ext_resource type="PackedScene" uid="uid://30mydrptkp5p" path="res://scenes/element_cell.tscn" id="3_au48s"]
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="4_xwmaw"]
@@ -100,6 +101,56 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 25
 text = "End turn"
 script = ExtResource("1_ht7q4")
+
+[node name="VictoryScreenPanel" type="Panel" parent="CanvasLayer/Control" node_paths=PackedStringArray("faction_label", "reload_level_button")]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_4747v")
+faction_label = NodePath("VBoxContainer/FactionLabel")
+reload_level_button = NodePath("VBoxContainer/Button")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/VictoryScreenPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -59.5
+offset_top = -38.0
+offset_right = 59.5
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FactionLabel" type="Label" parent="CanvasLayer/Control/VictoryScreenPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"HeaderLarge"
+theme_override_colors/font_color = Color(0.3, 1, 0.3, 1)
+text = "GREEN"
+
+[node name="VictoryLabel" type="Label" parent="CanvasLayer/Control/VictoryScreenPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_type_variation = &"HeaderLarge"
+text = "Victory"
+
+[node name="Button" type="Button" parent="CanvasLayer/Control/VictoryScreenPanel/VBoxContainer"]
+layout_mode = 2
+text = "restart"
 
 [node name="ElementCell" parent="." instance=ExtResource("3_au48s")]
 position = Vector2(64, 192)
