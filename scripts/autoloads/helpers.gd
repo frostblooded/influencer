@@ -12,3 +12,11 @@ static func safe_disconnect(sig: Signal, callable: Callable) -> void:
 static func safe_reload_current_scene(tree: SceneTree) -> void:
     var result: int = tree.reload_current_scene()
     assert(result == OK)
+
+static func orphan(node: Node) -> void:
+    var parent: Node = node.get_parent()
+    parent.remove_child(node)
+
+static func change_parent(node: Node, new_parent: Node) -> void:
+    orphan(node)
+    new_parent.add_child(node)

@@ -1,10 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://cvvvodfer4c1a"]
+[gd_scene load_steps=15 format=3 uid="uid://cvvvodfer4c1a"]
 
 [ext_resource type="Script" path="res://scripts/end_turn_button.gd" id="1_ht7q4"]
 [ext_resource type="PackedScene" uid="uid://vjq83572qbuv" path="res://scenes/grid_cell.tscn" id="1_jw3tg"]
 [ext_resource type="Script" path="res://scripts/victory_screen_panel.gd" id="2_4747v"]
 [ext_resource type="Script" path="res://scripts/grid.gd" id="2_g36i2"]
 [ext_resource type="PackedScene" uid="uid://30mydrptkp5p" path="res://scenes/element_cell.tscn" id="3_au48s"]
+[ext_resource type="Script" path="res://scripts/element_grid.gd" id="3_it4ka"]
+[ext_resource type="PackedScene" uid="uid://c0ri27pmwche4" path="res://scenes/rock_element.tscn" id="4_obidm"]
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="4_xwmaw"]
 [ext_resource type="PackedScene" uid="uid://bosldgi81a7pv" path="res://scenes/unit.tscn" id="5_05h2y"]
 [ext_resource type="PackedScene" uid="uid://4q8tgyxbcj52" path="res://scenes/level_manager.tscn" id="6_c4gmj"]
@@ -152,20 +154,25 @@ text = "Victory"
 layout_mode = 2
 text = "restart"
 
-[node name="ElementCell" parent="." instance=ExtResource("3_au48s")]
-position = Vector2(64, 192)
+[node name="ElementGrid" type="Node2D" parent="."]
+position = Vector2(64, 320)
+script = ExtResource("3_it4ka")
+starting_elements = Array[PackedScene]([ExtResource("4_obidm"), ExtResource("4_obidm"), ExtResource("4_obidm")])
 
-[node name="ElementCell2" parent="." instance=ExtResource("3_au48s")]
-position = Vector2(176, 192)
+[node name="ElementCell" parent="ElementGrid" instance=ExtResource("3_au48s")]
+position = Vector2(0, -128)
 
-[node name="ElementCell3" parent="." instance=ExtResource("3_au48s")]
-position = Vector2(288, 192)
+[node name="ElementCell2" parent="ElementGrid" instance=ExtResource("3_au48s")]
+position = Vector2(112, -128)
 
-[node name="ElementCell4" parent="." instance=ExtResource("3_au48s")]
-position = Vector2(400, 192)
+[node name="ElementCell3" parent="ElementGrid" instance=ExtResource("3_au48s")]
+position = Vector2(224, -128)
 
-[node name="ElementCell5" parent="." instance=ExtResource("3_au48s")]
-position = Vector2(512, 192)
+[node name="ElementCell4" parent="ElementGrid" instance=ExtResource("3_au48s")]
+position = Vector2(336, -128)
+
+[node name="ElementCell5" parent="ElementGrid" instance=ExtResource("3_au48s")]
+position = Vector2(448, -128)
 
 [node name="Grid" type="Node2D" parent="."]
 position = Vector2(64, 320)

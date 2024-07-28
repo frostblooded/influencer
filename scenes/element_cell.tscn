@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://30mydrptkp5p"]
+[gd_scene load_steps=9 format=3 uid="uid://30mydrptkp5p"]
 
 [ext_resource type="Script" path="res://scripts/cell.gd" id="1_jtqn7"]
-[ext_resource type="Texture2D" uid="uid://dgdlmbqptppwa" path="res://assets/soldier.png" id="2_2imay"]
 
 [sub_resource type="Gradient" id="Gradient_yc5u7"]
 offsets = PackedFloat32Array(0.99)
@@ -27,12 +26,13 @@ colors = PackedColorArray(1, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_r4l31"]
 gradient = SubResource("Gradient_numsh")
 
-[node name="ElementCell" type="Node2D" node_paths=PackedStringArray("area_2d", "default_sprite_2d", "hovered_sprite_2d", "debug_sprite_2d")]
+[node name="ElementCell" type="Node2D" node_paths=PackedStringArray("area_2d", "default_sprite_2d", "hovered_sprite_2d", "debug_sprite_2d", "_container")]
 script = ExtResource("1_jtqn7")
 area_2d = NodePath("Area2D")
 default_sprite_2d = NodePath("Sprite2D")
 hovered_sprite_2d = NodePath("HoveredSprite2D")
 debug_sprite_2d = NodePath("DebugSprite2D")
+_container = NodePath("Container")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.375, 88)
@@ -47,10 +47,7 @@ texture = SubResource("GradientTexture1D_g8agx")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_v7xei")
 
-[node name="Soldier" type="Sprite2D" parent="."]
-position = Vector2(-1.90735e-06, 0)
-scale = Vector2(4, 3.66667)
-texture = ExtResource("2_2imay")
+[node name="Container" type="Node2D" parent="."]
 
 [node name="DebugSprite2D" type="Sprite2D" parent="."]
 visible = false

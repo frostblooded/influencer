@@ -1,19 +1,19 @@
 [gd_scene load_steps=5 format=3 uid="uid://4q8tgyxbcj52"]
 
-[ext_resource type="Script" path="res://scripts/level_manager.gd" id="1_7m6rx"]
-[ext_resource type="Script" path="res://scripts/state_machine/player_turn_state.gd" id="2_b77u0"]
-[ext_resource type="Script" path="res://scripts/state_machine/red_turn_state.gd" id="3_rcvfb"]
-[ext_resource type="Script" path="res://scripts/state_machine/green_turn_state.gd" id="4_1rri2"]
+[ext_resource type="Script" path="res://scripts/state_machine/turns/level_manager.gd" id="1_7m6rx"]
+[ext_resource type="Script" path="res://scripts/state_machine/turns/player_turn_state.gd" id="2_3xpb5"]
+[ext_resource type="Script" path="res://scripts/state_machine/turns/red_turn_state.gd" id="3_isoyy"]
+[ext_resource type="Script" path="res://scripts/state_machine/turns/green_turn_state.gd" id="4_rmlyy"]
 
 [node name="LevelManager" type="Node" node_paths=PackedStringArray("_initial_state")]
 script = ExtResource("1_7m6rx")
 _initial_state = NodePath("PlayerTurnState")
 
 [node name="PlayerTurnState" type="Node" parent="."]
-script = ExtResource("2_b77u0")
+script = ExtResource("2_3xpb5")
 
 [node name="RedTurnState" type="Node" parent="."]
-script = ExtResource("3_rcvfb")
+script = ExtResource("3_isoyy")
 
 [node name="GreenTurnState" type="Node" parent="."]
-script = ExtResource("4_1rri2")
+script = ExtResource("4_rmlyy")

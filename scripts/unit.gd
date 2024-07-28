@@ -12,14 +12,14 @@ enum Action {
 
 class GridEnemy:
     var unit: Unit
-    var path: Array[Cell] = []
+    var path: Array[GridCell] = []
     var direction: Enums.Direction = Enums.Direction.None
 
     var distance: int:
         get:
             return path.size()
 
-    func _init(new_unit: Unit, new_path: Array[Cell], new_direction: Enums.Direction) -> void:
+    func _init(new_unit: Unit, new_path: Array[GridCell], new_direction: Enums.Direction) -> void:
         unit = new_unit
         path = new_path
         direction = new_direction
@@ -59,11 +59,11 @@ func plan_move_towards_enemy() -> void:
         planned_action_direction = closest_grid_enemy.direction
 
 class PathSearchStatus:
-    var cell: Cell
-    var path: Array[Cell] = []
+    var cell: GridCell
+    var path: Array[GridCell] = []
     var direction: Enums.Direction = Enums.Direction.None
 
-    func _init(new_cell: Cell, new_path: Array[Cell], new_first_direction: Enums.Direction) -> void:
+    func _init(new_cell: GridCell, new_path: Array[GridCell], new_first_direction: Enums.Direction) -> void:
         cell = new_cell
         path = new_path
         direction = new_first_direction
@@ -74,25 +74,29 @@ func update_grid_enemies() -> void:
     var queue: Array[PathSearchStatus] = []
     queue.push_back(PathSearchStatus.new(cell, [], Enums.Direction.None))
 
-    var visited: Array[Cell] = []
+    var visited: Array[GridCell] = []
 
     while !queue.is_empty():
         var current_path_search_status: PathSearchStatus = queue.pop_front()
-        var current_cell: Cell = current_path_search_status.cell
+        var current_cell: GridCell = current_path_search_status.cell
 
         if visited.has(current_cell):
             continue
 
         visited.push_back(current_cell)
-        var current_path: Array[Cell] = current_path_search_status.path
+        var current_path: Array[GridCell] = current_path_search_status.path
         var current_direction: Enums.Direction = current_path_search_status.direction
 
-        var unit: Unit = current_cell.peek_container() as Unit
-        if unit and unit != self:
-            _grid_enemies_cache.push_back(GridEnemy.new(unit, current_path, current_direction))
+        var placeable_object: PlaceableObject = current_cell.peek_container()
+        var unit: Unit = placeable_object as Unit
+        if unit:
+            if unit != self:
+                _grid_enemies_cache.push_back(GridEnemy.new(unit, current_path, current_direction))
+        elif placeable_object != null:
+            continue
         
-        for neighbor: Cell.Neighbor in current_cell.neighbors:
-            var path: Array[Cell] = current_path.duplicate()
+        for neighbor: GridCell.Neighbor in current_cell.neighbors:
+            var path: Array[GridCell] = current_path.duplicate()
             path.append(neighbor.cell)
 
             var direction: Enums.Direction = current_direction
