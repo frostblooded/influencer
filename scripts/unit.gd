@@ -117,12 +117,21 @@ func perform_move() -> void:
 
     if other_cell_containee != null:
         var other_cell_unit: Unit = other_cell_containee as Unit
-        if other_cell_unit == null:
-            return
-        
-        other_cell_unit.queue_free()
-        other_cell.empty_container()
+        if other_cell_unit != null:
+            other_cell_unit.queue_free()
+        else:
+            var other_cell_element: ElementPlaceableObject = other_cell_containee as ElementPlaceableObject
+            if other_cell_element:
+                if other_cell_element.is_blocking:
+                    return
+                
+                if other_cell_element.is_damaging:
+                    cell.reset_action_sprite_2d()
+                    cell.empty_container()
+                    return
+
         other_cell.reset_action_sprite_2d()
+        other_cell.empty_container()
 
     cell.reset_action_sprite_2d()
     cell.empty_container()

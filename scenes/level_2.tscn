@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://de6ivc2xvi7y4"]
+
+[ext_resource type="PackedScene" uid="uid://cvvvodfer4c1a" path="res://scenes/level_1.tscn" id="1_7jhq4"]
+
+[node name="Level2" instance=ExtResource("1_7jhq4")]
+
+[node name="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer3" index="0"]
+text = "Level 2"
+
+[node name="VictoryScreenPanel" parent="CanvasLayer/Control" index="1"]
+next_level_scene_path = "res://scenes/level_3.tscn"

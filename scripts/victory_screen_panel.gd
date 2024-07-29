@@ -1,11 +1,12 @@
 extends Panel
 
 @export var faction_label: Label
-@export var reload_level_button: Button
+@export var next_level_button: Button
+@export var next_level_scene_path: String
 
 func _enter_tree() -> void:
 	Helpers.safe_connect(EventBus.game_victory, show_winner)
-	Helpers.safe_connect(reload_level_button.pressed, reload_level)
+	Helpers.safe_connect(next_level_button.pressed, next_level)
 
 func _ready() -> void:
 	hide()
@@ -21,5 +22,11 @@ func show_winner(faction: Enums.Faction) -> void:
 	else:
 		push_error("Unknown faction")
 
-func reload_level() -> void:
-	Helpers.safe_reload_current_scene(get_tree())
+	if next_level_scene_path.is_empty():
+		next_level_button.hide()
+
+func next_level() -> void:
+	if next_level_scene_path.is_empty():
+		return
+
+	Helpers.safe_change_scene_to_file(get_tree(), next_level_scene_path)

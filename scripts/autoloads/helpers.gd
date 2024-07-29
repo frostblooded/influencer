@@ -13,6 +13,14 @@ static func safe_reload_current_scene(tree: SceneTree) -> void:
     var result: int = tree.reload_current_scene()
     assert(result == OK)
 
+static func safe_change_scene_to_packed(tree: SceneTree, packed: PackedScene) -> void:
+    var result: int = tree.change_scene_to_packed(packed)
+    assert(result == OK)
+
+static func safe_change_scene_to_file(tree: SceneTree, file: String) -> void:
+    var result: int = tree.change_scene_to_file(file)
+    assert(result == OK)
+
 static func orphan(node: Node) -> void:
     var parent: Node = node.get_parent()
     parent.remove_child(node)
