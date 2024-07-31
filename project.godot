@@ -67,7 +67,7 @@ gdscript/warnings/confusable_local_usage=2
 window/size/viewport_width=576
 window/size/viewport_height=800
 window/stretch/mode="viewport"
-window/stretch/aspect="keep_height"
+window/stretch/aspect="keep_width"
 window/stretch/scale_mode="integer"
 
 [editor_plugins]

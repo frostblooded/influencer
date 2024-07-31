@@ -1,8 +1,8 @@
-class_name RedTurnState
+class_name AITurnState
 extends State
 
-func enter(_parent: Node) -> void:
-    print("Enter red state")
+@export var faction: Faction
+@export var next_state: State
 
 func state_process(_delta: float, _parent: Node) -> void:
     if !is_inside_tree():
@@ -11,11 +11,8 @@ func state_process(_delta: float, _parent: Node) -> void:
     for unit_node: Node in get_tree().get_nodes_in_group("units"):
         var unit: Unit = unit_node as Unit
 
-        if unit.faction == Enums.Faction.Red:
+        if unit.faction == faction:
             unit.perform_action()
 
     EventBus.performed_actions.emit()
-    transitioned.emit(self, "PlayerTurnState")
-
-func exit(_parent: Node) -> void:
-    print("Exit red state")
+    transitioned.emit(next_state)

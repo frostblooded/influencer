@@ -2,8 +2,12 @@ class_name Unit
 extends PlaceableObject
 
 @export var move_action_texture: Texture2D
+@export var faction_sprite_2d: Sprite2D
 
-var faction: Enums.Faction = Enums.Faction.None
+var faction: Faction:
+    set(new_faction):
+        faction = new_faction
+        faction_sprite_2d.texture = Helpers.create_1_color_gradient_texture(new_faction.color)
 
 enum Action {
     None,
@@ -40,9 +44,6 @@ func update_actions() -> void:
     
     if planned_action != Action.None:
         cell.set_action_sprite_2d(move_action_texture, planned_action_direction)
-    
-    print("Updated planned action for ", self, " is ", Action.find_key(planned_action))
-    print("Updated planned action direction for ", self, " is ", Enums.Direction.find_key(planned_action_direction))
 
 func can_plan_move_towards_enemy() -> bool:
     return !_grid_enemies_cache.is_empty()

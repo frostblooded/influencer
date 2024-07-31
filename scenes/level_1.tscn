@@ -1,16 +1,18 @@
-[gd_scene load_steps=16 format=3 uid="uid://cvvvodfer4c1a"]
+[gd_scene load_steps=18 format=3 uid="uid://cvvvodfer4c1a"]
 
 [ext_resource type="Script" path="res://scripts/end_turn_button.gd" id="1_y8ygf"]
 [ext_resource type="Script" path="res://scripts/victory_screen_panel.gd" id="2_in3wr"]
-[ext_resource type="Script" path="res://scripts/element_grid.gd" id="3_lj5s8"]
+[ext_resource type="Script" path="res://scripts/inventory_grid.gd" id="3_lj5s8"]
 [ext_resource type="PackedScene" uid="uid://c0ri27pmwche4" path="res://scenes/rock_element.tscn" id="4_wdqv8"]
 [ext_resource type="PackedScene" uid="uid://j2rt6h2o4fxb" path="res://scenes/lightning_element.tscn" id="5_igwqa"]
-[ext_resource type="PackedScene" uid="uid://30mydrptkp5p" path="res://scenes/element_cell.tscn" id="6_tcijv"]
+[ext_resource type="PackedScene" uid="uid://b7ad14at3ofrm" path="res://scenes/inventory_cell.tscn" id="6_bsr6w"]
 [ext_resource type="Script" path="res://scripts/grid.gd" id="7_io0x2"]
-[ext_resource type="PackedScene" uid="uid://vjq83572qbuv" path="res://scenes/grid_cell.tscn" id="8_yhwsv"]
+[ext_resource type="PackedScene" uid="uid://dl1tj8dvgjcg2" path="res://scenes/grid_cell.tscn" id="7_lkwqf"]
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="9_al5wj"]
+[ext_resource type="Resource" uid="uid://dxs1coccku8n1" path="res://resources/factions/green_faction.tres" id="9_sdona"]
 [ext_resource type="PackedScene" uid="uid://bosldgi81a7pv" path="res://scenes/unit.tscn" id="10_knpjx"]
 [ext_resource type="PackedScene" uid="uid://4q8tgyxbcj52" path="res://scenes/level_manager.tscn" id="11_5n4px"]
+[ext_resource type="Resource" uid="uid://6rvy2hgst74q" path="res://resources/factions/red_faction.tres" id="12_6bu8g"]
 
 [sub_resource type="Gradient" id="Gradient_nvnxt"]
 offsets = PackedFloat32Array(1)
@@ -22,13 +24,13 @@ gradient = SubResource("Gradient_nvnxt")
 [sub_resource type="Resource" id="Resource_b7lf8"]
 script = ExtResource("9_al5wj")
 grid_coordinates = Vector2(0, 2)
-faction = 1
+faction = ExtResource("9_sdona")
 unit_scene = ExtResource("10_knpjx")
 
 [sub_resource type="Resource" id="Resource_wu7mj"]
 script = ExtResource("9_al5wj")
 grid_coordinates = Vector2(4, 2)
-faction = 2
+faction = ExtResource("12_6bu8g")
 unit_scene = ExtResource("10_knpjx")
 
 [node name="Level1" type="Node2D"]
@@ -73,11 +75,6 @@ theme_type_variation = &"HeaderLarge"
 theme_override_colors/font_color = Color(0.3, 1, 0.3, 1)
 text = "GREEN"
 
-[node name="Label2" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "+1 green loyalty
-+5 green influence"
-
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
@@ -88,12 +85,6 @@ size_flags_horizontal = 4
 theme_type_variation = &"HeaderLarge"
 theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
 text = "RED"
-
-[node name="Label2" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "+1 red loyalty
-+5 red influence"
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
 layout_mode = 2
@@ -130,7 +121,6 @@ grow_vertical = 2
 script = ExtResource("2_in3wr")
 faction_label = NodePath("VBoxContainer/FactionLabel")
 next_level_button = NodePath("VBoxContainer/Button")
-next_level_scene_path = "res://scenes/level_2.tscn"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/VictoryScreenPanel"]
 layout_mode = 1
@@ -164,30 +154,33 @@ text = "Victory"
 layout_mode = 2
 text = "next level"
 
-[node name="ElementGrid" type="Node2D" parent="."]
-position = Vector2(64, 320)
+[node name="InventoryGrid" type="Node2D" parent="."]
+position = Vector2(64, 192)
 script = ExtResource("3_lj5s8")
 starting_elements = Array[PackedScene]([ExtResource("4_wdqv8"), ExtResource("5_igwqa")])
 
-[node name="ElementCell" parent="ElementGrid" instance=ExtResource("6_tcijv")]
-position = Vector2(0, -128)
+[node name="InventoryCell" parent="InventoryGrid" instance=ExtResource("6_bsr6w")]
+position = Vector2(16, 0)
 
-[node name="ElementCell2" parent="ElementGrid" instance=ExtResource("6_tcijv")]
-position = Vector2(112, -128)
+[node name="InventoryCell2" parent="InventoryGrid" instance=ExtResource("6_bsr6w")]
+position = Vector2(120, 0)
 
-[node name="ElementCell3" parent="ElementGrid" instance=ExtResource("6_tcijv")]
-position = Vector2(224, -128)
+[node name="InventoryCell3" parent="InventoryGrid" instance=ExtResource("6_bsr6w")]
+position = Vector2(224, 0)
 
-[node name="ElementCell4" parent="ElementGrid" instance=ExtResource("6_tcijv")]
-position = Vector2(336, -128)
+[node name="InventoryCell4" parent="InventoryGrid" instance=ExtResource("6_bsr6w")]
+position = Vector2(328, 0)
 
-[node name="ElementCell5" parent="ElementGrid" instance=ExtResource("6_tcijv")]
-position = Vector2(448, -128)
+[node name="InventoryCell5" parent="InventoryGrid" instance=ExtResource("6_bsr6w")]
+position = Vector2(432, 0)
 
 [node name="Grid" type="Node2D" parent="."]
-position = Vector2(64, 320)
+position = Vector2(80, 312)
 script = ExtResource("7_io0x2")
-cell_scene = ExtResource("8_yhwsv")
+width = null
+height = null
+cell_scene = ExtResource("7_lkwqf")
+cell_x_diff = 104
 cell_y_diff = 104
 spawners = Array[ExtResource("9_al5wj")]([SubResource("Resource_b7lf8"), SubResource("Resource_wu7mj")])
 

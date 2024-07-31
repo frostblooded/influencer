@@ -7,9 +7,3 @@ enum Direction {
     Bottom,
     Left
 }
-
-enum Faction {
-    None,
-    Green,
-    Red
-}

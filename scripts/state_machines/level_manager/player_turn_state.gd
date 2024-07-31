@@ -1,11 +1,9 @@
 class_name PlayerTurnState
 extends State
 
-func enter(_parent: Node) -> void:
-    if !is_inside_tree():
-        return
+@export var next_state: State
 
-    print("Start player turn")
+func enter(_parent: Node) -> void:
     Helpers.safe_connect(EventBus.on_end_turn_button_pressed, on_end_turn_button_pressed)
 
     for unit_node: Node in get_tree().get_nodes_in_group("units"):
@@ -14,7 +12,6 @@ func enter(_parent: Node) -> void:
     
 func exit(_parent: Node) -> void:
     Helpers.safe_disconnect(EventBus.on_end_turn_button_pressed, on_end_turn_button_pressed)
-    print("End player turn")
 
 func on_end_turn_button_pressed() -> void:
-    transitioned.emit(self, "GreenTurnState")
+    transitioned.emit(next_state)

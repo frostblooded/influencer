@@ -4,7 +4,6 @@ extends Node2D
 @export var area_2d: Area2D
 @export var default_sprite_2d: Sprite2D
 @export var hovered_sprite_2d: Sprite2D
-@export var debug_sprite_2d: Sprite2D
 
 @export var _container: Node2D
 
@@ -14,7 +13,6 @@ func _ready() -> void:
 
 	default_sprite_2d.show()
 	hovered_sprite_2d.hide()
-	debug_sprite_2d.hide()
 
 func on_mouse_entered() -> void:
 	default_sprite_2d.hide()
@@ -40,15 +38,7 @@ func empty_container() -> void:
 	_container.remove_child(placeable_object)
 
 func peek_container() -> PlaceableObject:
-	assert(_container.get_child_count() <= 1)
-
 	if _container.get_child_count() == 1:
 		return _container.get_child(0)
 	else:
 		return null
-
-func show_debug() -> void:
-	debug_sprite_2d.show()
-
-func hide_debug() -> void:
-	debug_sprite_2d.hide()

@@ -1,14 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://bosldgi81a7pv"]
+[gd_scene load_steps=6 format=3 uid="uid://bosldgi81a7pv"]
 
 [ext_resource type="Texture2D" uid="uid://dgdlmbqptppwa" path="res://assets/soldier.png" id="1_b1kv1"]
 [ext_resource type="Script" path="res://scripts/unit.gd" id="1_evil8"]
 [ext_resource type="Texture2D" uid="uid://biumxxayrtuu5" path="res://assets/arrow.png" id="2_41fv4"]
 
-[node name="Unit" type="Node2D" groups=["units"]]
+[sub_resource type="Gradient" id="Gradient_8qw5f"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bg3yp"]
+gradient = SubResource("Gradient_8qw5f")
+
+[node name="Unit" type="Node2D" node_paths=PackedStringArray("faction_sprite_2d") groups=["units"]]
 script = ExtResource("1_evil8")
 move_action_texture = ExtResource("2_41fv4")
+faction_sprite_2d = NodePath("FactionSprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1.90735e-06, 1.90735e-06)
 scale = Vector2(3.5, 3.5)
 texture = ExtResource("1_b1kv1")
+
+[node name="FactionSprite2D" type="Sprite2D" parent="."]
+position = Vector2(42, -42)
+scale = Vector2(0.0625, 16.25)
+texture = SubResource("GradientTexture1D_bg3yp")
