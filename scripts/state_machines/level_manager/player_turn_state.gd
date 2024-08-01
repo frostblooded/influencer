@@ -8,7 +8,7 @@ func enter(_parent: Node) -> void:
 
     for unit_node: Node in get_tree().get_nodes_in_group("units"):
         var unit: Unit = unit_node as Unit
-        unit.update_actions()
+        unit.update_plan()
     
 func exit(_parent: Node) -> void:
     Helpers.safe_disconnect(EventBus.on_end_turn_button_pressed, on_end_turn_button_pressed)

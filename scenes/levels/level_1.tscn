@@ -1,18 +1,17 @@
-[gd_scene load_steps=18 format=3 uid="uid://cvvvodfer4c1a"]
+[gd_scene load_steps=17 format=3 uid="uid://cvvvodfer4c1a"]
 
-[ext_resource type="Script" path="res://scripts/end_turn_button.gd" id="1_y8ygf"]
-[ext_resource type="Script" path="res://scripts/victory_screen_panel.gd" id="2_in3wr"]
-[ext_resource type="Script" path="res://scripts/inventory_grid.gd" id="3_lj5s8"]
-[ext_resource type="PackedScene" uid="uid://c0ri27pmwche4" path="res://scenes/rock_element.tscn" id="4_wdqv8"]
-[ext_resource type="PackedScene" uid="uid://j2rt6h2o4fxb" path="res://scenes/lightning_element.tscn" id="5_igwqa"]
-[ext_resource type="PackedScene" uid="uid://b7ad14at3ofrm" path="res://scenes/inventory_cell.tscn" id="6_bsr6w"]
-[ext_resource type="Script" path="res://scripts/grid.gd" id="7_io0x2"]
-[ext_resource type="PackedScene" uid="uid://dl1tj8dvgjcg2" path="res://scenes/grid_cell.tscn" id="7_lkwqf"]
-[ext_resource type="Script" path="res://scripts/spawner.gd" id="9_al5wj"]
-[ext_resource type="Resource" uid="uid://dxs1coccku8n1" path="res://resources/factions/green_faction.tres" id="9_sdona"]
-[ext_resource type="PackedScene" uid="uid://bosldgi81a7pv" path="res://scenes/unit.tscn" id="10_knpjx"]
-[ext_resource type="PackedScene" uid="uid://4q8tgyxbcj52" path="res://scenes/level_manager.tscn" id="11_5n4px"]
-[ext_resource type="Resource" uid="uid://6rvy2hgst74q" path="res://resources/factions/red_faction.tres" id="12_6bu8g"]
+[ext_resource type="Script" path="res://scripts/ui/end_turn_button.gd" id="1_4eei4"]
+[ext_resource type="Script" path="res://scripts/ui/victory_screen_panel.gd" id="2_tj3ea"]
+[ext_resource type="Script" path="res://scripts/grids/inventory_grid.gd" id="3_rm17l"]
+[ext_resource type="PackedScene" uid="uid://c0ri27pmwche4" path="res://scenes/items/rock_item.tscn" id="4_q68yn"]
+[ext_resource type="PackedScene" uid="uid://b7ad14at3ofrm" path="res://scenes/inventory_cell.tscn" id="5_u88ib"]
+[ext_resource type="Script" path="res://scripts/grids/grid.gd" id="6_eppx7"]
+[ext_resource type="PackedScene" uid="uid://dl1tj8dvgjcg2" path="res://scenes/grid_cell.tscn" id="7_ysjo5"]
+[ext_resource type="Resource" uid="uid://dxs1coccku8n1" path="res://resources/factions/green_faction.tres" id="8_x3lke"]
+[ext_resource type="Script" path="res://scripts/spawner.gd" id="9_dywpj"]
+[ext_resource type="PackedScene" uid="uid://bosldgi81a7pv" path="res://scenes/unit.tscn" id="10_uciyf"]
+[ext_resource type="Resource" uid="uid://6rvy2hgst74q" path="res://resources/factions/red_faction.tres" id="11_ura4m"]
+[ext_resource type="PackedScene" uid="uid://4q8tgyxbcj52" path="res://scenes/level_manager.tscn" id="12_bpy5c"]
 
 [sub_resource type="Gradient" id="Gradient_nvnxt"]
 offsets = PackedFloat32Array(1)
@@ -22,16 +21,16 @@ colors = PackedColorArray(0.352941, 0.388235, 0.611765, 1)
 gradient = SubResource("Gradient_nvnxt")
 
 [sub_resource type="Resource" id="Resource_b7lf8"]
-script = ExtResource("9_al5wj")
+script = ExtResource("9_dywpj")
 grid_coordinates = Vector2(0, 2)
-faction = ExtResource("9_sdona")
-unit_scene = ExtResource("10_knpjx")
+faction = ExtResource("8_x3lke")
+unit_scene = ExtResource("10_uciyf")
 
 [sub_resource type="Resource" id="Resource_wu7mj"]
-script = ExtResource("9_al5wj")
+script = ExtResource("9_dywpj")
 grid_coordinates = Vector2(4, 2)
-faction = ExtResource("12_6bu8g")
-unit_scene = ExtResource("10_knpjx")
+faction = ExtResource("11_ura4m")
+unit_scene = ExtResource("10_uciyf")
 
 [node name="Level1" type="Node2D"]
 
@@ -102,7 +101,7 @@ size_flags_vertical = 8
 focus_mode = 0
 theme_override_font_sizes/font_size = 25
 text = "End turn"
-script = ExtResource("1_y8ygf")
+script = ExtResource("1_4eei4")
 
 [node name="VictoryScreenPanel" type="Panel" parent="CanvasLayer/Control" node_paths=PackedStringArray("faction_label", "next_level_button")]
 custom_minimum_size = Vector2(200, 200)
@@ -118,7 +117,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("2_in3wr")
+script = ExtResource("2_tj3ea")
 faction_label = NodePath("VBoxContainer/FactionLabel")
 next_level_button = NodePath("VBoxContainer/Button")
 
@@ -156,32 +155,30 @@ text = "next level"
 
 [node name="InventoryGrid" type="Node2D" parent="."]
 position = Vector2(64, 192)
-script = ExtResource("3_lj5s8")
-starting_elements = Array[PackedScene]([ExtResource("4_wdqv8"), ExtResource("5_igwqa")])
+script = ExtResource("3_rm17l")
+starting_items = Array[PackedScene]([ExtResource("4_q68yn")])
 
-[node name="InventoryCell" parent="InventoryGrid" instance=ExtResource("6_bsr6w")]
+[node name="InventoryCell" parent="InventoryGrid" instance=ExtResource("5_u88ib")]
 position = Vector2(16, 0)
 
-[node name="InventoryCell2" parent="InventoryGrid" instance=ExtResource("6_bsr6w")]
+[node name="InventoryCell2" parent="InventoryGrid" instance=ExtResource("5_u88ib")]
 position = Vector2(120, 0)
 
-[node name="InventoryCell3" parent="InventoryGrid" instance=ExtResource("6_bsr6w")]
+[node name="InventoryCell3" parent="InventoryGrid" instance=ExtResource("5_u88ib")]
 position = Vector2(224, 0)
 
-[node name="InventoryCell4" parent="InventoryGrid" instance=ExtResource("6_bsr6w")]
+[node name="InventoryCell4" parent="InventoryGrid" instance=ExtResource("5_u88ib")]
 position = Vector2(328, 0)
 
-[node name="InventoryCell5" parent="InventoryGrid" instance=ExtResource("6_bsr6w")]
+[node name="InventoryCell5" parent="InventoryGrid" instance=ExtResource("5_u88ib")]
 position = Vector2(432, 0)
 
 [node name="Grid" type="Node2D" parent="."]
 position = Vector2(80, 312)
-script = ExtResource("7_io0x2")
-width = null
-height = null
-cell_scene = ExtResource("7_lkwqf")
+script = ExtResource("6_eppx7")
+cell_scene = ExtResource("7_ysjo5")
 cell_x_diff = 104
 cell_y_diff = 104
-spawners = Array[ExtResource("9_al5wj")]([SubResource("Resource_b7lf8"), SubResource("Resource_wu7mj")])
+spawners = Array[ExtResource("9_dywpj")]([SubResource("Resource_b7lf8"), SubResource("Resource_wu7mj")])
 
-[node name="LevelManager" parent="." instance=ExtResource("11_5n4px")]
+[node name="LevelManager" parent="." instance=ExtResource("12_bpy5c")]

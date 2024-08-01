@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c0ri27pmwche4"]
-
-[ext_resource type="PackedScene" uid="uid://d243sqiodghwd" path="res://scenes/item.tscn" id="1_o63f2"]
-
-[node name="RockElement" instance=ExtResource("1_o63f2")]
-is_blocking = true

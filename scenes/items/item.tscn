@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://d243sqiodghwd"]
 
-[ext_resource type="Script" path="res://scripts/placeable_item.gd" id="1_fwq5t"]
+[ext_resource type="Script" path="res://scripts/item.gd" id="1_eok4o"]
 [ext_resource type="Script" path="res://scripts/state_machines/state_machine.gd" id="2_y7nqv"]
 [ext_resource type="Script" path="res://scripts/state_machines/item/idle_state.gd" id="3_8ojxu"]
 [ext_resource type="Script" path="res://scripts/state_machines/item/dragged_state.gd" id="4_a4x7h"]
@@ -18,7 +18,7 @@ size = Vector2(64, 64)
 
 [node name="Item" type="Node2D"]
 z_index = 10
-script = ExtResource("1_fwq5t")
+script = ExtResource("1_eok4o")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("_initial_state")]
 script = ExtResource("2_y7nqv")

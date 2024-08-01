@@ -12,7 +12,7 @@ func state_process(_delta: float, _parent: Node) -> void:
         var unit: Unit = unit_node as Unit
 
         if unit.faction == faction:
-            unit.perform_action()
+            unit.perform_move()
 
     EventBus.performed_actions.emit()
     transitioned.emit(next_state)
