@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Faction" load_steps=2 format=3 uid="uid://babtx05nfgoc"]
+
+[ext_resource type="Script" path="res://scripts/resources/faction.gd" id="1_t507a"]
+
+[resource]
+script = ExtResource("1_t507a")
+name = "player"
+color = Color(0.953333, 1, 0.3, 1)

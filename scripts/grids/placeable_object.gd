@@ -4,4 +4,4 @@ extends Node2D
 var cell: GridCell
 
 func _to_string() -> String:
-    return "{}".format([cell], "{}")
+    return str(get_instance_id())

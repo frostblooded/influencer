@@ -121,3 +121,4 @@ func perform_move() -> void:
 
     cell.empty_container()
     _planned_move_target.add_to_container(self)
+    action_sprite_2d.hide()

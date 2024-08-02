@@ -22,4 +22,4 @@ func get_direction_from_neighbor_cell(neighbor_cell: GridCell) -> Enums.Directio
     return Enums.Direction.None
 
 func _to_string() -> String:
-    return "({}, {})".format([grid_coordinates.x, grid_coordinates.y], "{}")
+    return "({}, {})({})".format([grid_coordinates.x, grid_coordinates.y, get_instance_id()], "{}")

@@ -1,6 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://cvvvodfer4c1a"]
+[gd_scene load_steps=19 format=3 uid="uid://cvvvodfer4c1a"]
 
 [ext_resource type="Script" path="res://scripts/ui/end_turn_button.gd" id="1_4eei4"]
+[ext_resource type="Script" path="res://scripts/ui/turn_container.gd" id="1_ojnil"]
+[ext_resource type="Resource" uid="uid://babtx05nfgoc" path="res://resources/factions/player_faction.tres" id="2_o0bhg"]
 [ext_resource type="Script" path="res://scripts/ui/victory_screen_panel.gd" id="2_tj3ea"]
 [ext_resource type="Script" path="res://scripts/grids/inventory_grid.gd" id="3_rm17l"]
 [ext_resource type="PackedScene" uid="uid://c0ri27pmwche4" path="res://scenes/items/rock_item.tscn" id="4_q68yn"]
@@ -85,15 +87,29 @@ theme_type_variation = &"HeaderLarge"
 theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
 text = "RED"
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer3"]
+[node name="TurnContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer" node_paths=PackedStringArray("faction_name_label", "end_turn_button")]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Level 1"
+size_flags_vertical = 4
+script = ExtResource("1_ojnil")
+faction_name_label = NodePath("HBoxContainer/FactionNameLabel")
+end_turn_button = NodePath("EndTurnButton")
+player_faction = ExtResource("2_o0bhg")
 
-[node name="EndTurnButton" type="Button" parent="CanvasLayer/Control/MarginContainer/VBoxContainer3"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/TurnContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="FactionNameLabel" type="Label" parent="CanvasLayer/Control/MarginContainer/TurnContainer/HBoxContainer"]
+layout_mode = 2
+text = "green"
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/TurnContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "turn"
+
+[node name="EndTurnButton" type="Button" parent="CanvasLayer/Control/MarginContainer/TurnContainer"]
 custom_minimum_size = Vector2(180, 70)
 layout_mode = 2
 size_flags_horizontal = 4
