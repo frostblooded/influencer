@@ -1,14 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://d243sqiodghwd"]
+[gd_scene load_steps=10 format=3 uid="uid://d243sqiodghwd"]
 
 [ext_resource type="Script" path="res://scripts/item.gd" id="1_eok4o"]
 [ext_resource type="Script" path="res://scripts/state_machines/state_machine.gd" id="2_y7nqv"]
 [ext_resource type="Script" path="res://scripts/state_machines/item/idle_state.gd" id="3_8ojxu"]
 [ext_resource type="Script" path="res://scripts/state_machines/item/dragged_state.gd" id="4_a4x7h"]
-[ext_resource type="Script" path="res://scripts/state_machines/item/immovable_state.gd" id="5_grru6"]
+[ext_resource type="Script" path="res://scripts/state_machines/item/placed_movable_state.gd" id="6_gg8ej"]
+[ext_resource type="Script" path="res://scripts/state_machines/item/placed_immovable_state.gd" id="6_ilons"]
 
 [sub_resource type="Gradient" id="Gradient_w13t2"]
 offsets = PackedFloat32Array(1)
-colors = PackedColorArray(0, 0, 0, 1)
+colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_3208d"]
 gradient = SubResource("Gradient_w13t2")
@@ -16,9 +17,9 @@ gradient = SubResource("Gradient_w13t2")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o2xuv"]
 size = Vector2(64, 64)
 
-[node name="Item" type="Node2D"]
-z_index = 10
+[node name="Item" type="Node2D" node_paths=PackedStringArray("state_machine") groups=["items"]]
 script = ExtResource("1_eok4o")
+state_machine = NodePath("StateMachine")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("_initial_state")]
 script = ExtResource("2_y7nqv")
@@ -29,16 +30,23 @@ script = ExtResource("3_8ojxu")
 area_2d = NodePath("../../Area2D")
 dragged_state = NodePath("../DraggedState")
 
-[node name="DraggedState" type="Node" parent="StateMachine" node_paths=PackedStringArray("area_2d", "immovable_state", "idle_state")]
+[node name="DraggedState" type="Node" parent="StateMachine" node_paths=PackedStringArray("area_2d", "placed_movable_state", "idle_state")]
 script = ExtResource("4_a4x7h")
 area_2d = NodePath("../../Area2D")
-immovable_state = NodePath("../ImmovableState")
+placed_movable_state = NodePath("../PlacedMovableState")
 idle_state = NodePath("../IdleState")
 
-[node name="ImmovableState" type="Node" parent="StateMachine"]
-script = ExtResource("5_grru6")
+[node name="PlacedImmovableState" type="Node" parent="StateMachine"]
+script = ExtResource("6_ilons")
+
+[node name="PlacedMovableState" type="Node" parent="StateMachine" node_paths=PackedStringArray("placed_immovable_state", "area_2d", "dragged_state")]
+script = ExtResource("6_gg8ej")
+placed_immovable_state = NodePath("../PlacedImmovableState")
+area_2d = NodePath("../../Area2D")
+dragged_state = NodePath("../DraggedState")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 15
 scale = Vector2(0.25, 64.5)
 texture = SubResource("GradientTexture1D_3208d")
 

@@ -1,32 +1,42 @@
-[gd_scene load_steps=8 format=3 uid="uid://4q8tgyxbcj52"]
+[gd_scene load_steps=10 format=3 uid="uid://4q8tgyxbcj52"]
 
 [ext_resource type="Script" path="res://scripts/level_manager.gd" id="1_1jpay"]
-[ext_resource type="Script" path="res://scripts/state_machines/state_machine.gd" id="1_c8cvl"]
 [ext_resource type="Script" path="res://scripts/state_machines/level_manager/player_turn_state.gd" id="2_3xpb5"]
 [ext_resource type="Script" path="res://scripts/state_machines/level_manager/ai_turn_state.gd" id="3_v551b"]
+[ext_resource type="Script" path="res://scripts/state_machines/level_manager/level_manager_state_machine.gd" id="4_g1c6d"]
 [ext_resource type="Resource" uid="uid://dxs1coccku8n1" path="res://resources/factions/green_faction.tres" id="4_vtj7t"]
 [ext_resource type="Resource" uid="uid://6rvy2hgst74q" path="res://resources/factions/red_faction.tres" id="5_sugrq"]
 [ext_resource type="Resource" uid="uid://babtx05nfgoc" path="res://resources/factions/player_faction.tres" id="6_n35x0"]
+[ext_resource type="Script" path="res://scripts/state_machines/level_manager/world_turn_state.gd" id="7_tsbse"]
+[ext_resource type="Resource" uid="uid://8nokjlwwy7bc" path="res://resources/factions/world_faction.tres" id="8_68110"]
 
 [node name="LevelManager" type="Node"]
 script = ExtResource("1_1jpay")
 factions = Array[Resource("res://scripts/resources/faction.gd")]([ExtResource("4_vtj7t"), ExtResource("5_sugrq")])
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("_initial_state")]
-script = ExtResource("1_c8cvl")
+[node name="LevelManagerStateMachine" type="Node" parent="." node_paths=PackedStringArray("_initial_state")]
+script = ExtResource("4_g1c6d")
 _initial_state = NodePath("PlayerTurnState")
 
-[node name="PlayerTurnState" type="Node" parent="StateMachine" node_paths=PackedStringArray("next_state")]
+[node name="PlayerTurnState" type="Node" parent="LevelManagerStateMachine" node_paths=PackedStringArray("next_state")]
 script = ExtResource("2_3xpb5")
-next_state = NodePath("../GreenTurnState")
+next_state = NodePath("../WorldTurnState")
 player_faction = ExtResource("6_n35x0")
 
-[node name="GreenTurnState" type="Node" parent="StateMachine" node_paths=PackedStringArray("next_state")]
+[node name="WorldTurnState" type="Node" parent="LevelManagerStateMachine" node_paths=PackedStringArray("next_state")]
+script = ExtResource("7_tsbse")
+faction = ExtResource("8_68110")
+next_state = NodePath("../GreenTurnState")
+seconds_between_moves = 0.5
+
+[node name="GreenTurnState" type="Node" parent="LevelManagerStateMachine" node_paths=PackedStringArray("next_state")]
 script = ExtResource("3_v551b")
 faction = ExtResource("4_vtj7t")
 next_state = NodePath("../RedTurnState")
+seconds_between_moves = 0.5
 
-[node name="RedTurnState" type="Node" parent="StateMachine" node_paths=PackedStringArray("next_state")]
+[node name="RedTurnState" type="Node" parent="LevelManagerStateMachine" node_paths=PackedStringArray("next_state")]
 script = ExtResource("3_v551b")
 faction = ExtResource("5_sugrq")
 next_state = NodePath("../PlayerTurnState")
+seconds_between_moves = 0.5

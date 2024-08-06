@@ -1,5 +1,5 @@
 class_name IdleState
-extends State
+extends ItemState
 
 @export var area_2d: Area2D
 @export var dragged_state: State

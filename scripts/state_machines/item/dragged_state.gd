@@ -1,9 +1,9 @@
 class_name DraggedState
-extends State
+extends ItemState
 
 @export var area_2d: Area2D
-@export var immovable_state: State
-@export var idle_state: State
+@export var placed_movable_state: PlacedMovableState
+@export var idle_state: IdleState
 
 var _initial_position: Vector2
 
@@ -12,14 +12,14 @@ func enter(item_node: Node) -> void:
 	_initial_position = item_2d.global_position
 
 func state_process(_delta: float, item_node: Node) -> void:
-	var item_2d: Node2D = item_node as Node2D
+	var item: Item = item_node as Item
 	var mouse_position: Vector2 = get_viewport().get_mouse_position()
-	item_2d.global_position = mouse_position
+	item.global_position = mouse_position
 
 	if !Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		handle_mouse_release(item_2d, mouse_position)
+		handle_mouse_release(item, mouse_position)
 
-func find_best_overlapping_area_for_placing(area: Area2D, mouse_position: Vector2) -> Area2D:
+func find_best_overlapping_area_for_placing(item: Item, area: Area2D, mouse_position: Vector2) -> Area2D:
 	var best_area: Area2D = null
 	var best_distance: float
 
@@ -27,8 +27,9 @@ func find_best_overlapping_area_for_placing(area: Area2D, mouse_position: Vector
 		var area_parent: Node = overlapping_area.get_parent()
 		if area_parent is GridCell:
 			var cell: GridCell = area_parent as GridCell
+			var cell_containee: Node2D = cell.peek_container()
 
-			if cell.peek_container() == null:
+			if cell_containee == null or cell_containee == item:
 				var distance: float = mouse_position.distance_squared_to(cell.global_position)
 
 				if !best_area || distance < best_distance:
@@ -37,15 +38,15 @@ func find_best_overlapping_area_for_placing(area: Area2D, mouse_position: Vector
 	
 	return best_area
 
-func handle_mouse_release(item_node: Node2D, mouse_position: Vector2) -> void:
-	var best_area: Area2D = find_best_overlapping_area_for_placing(area_2d, mouse_position)
+func handle_mouse_release(item: Item, mouse_position: Vector2) -> void:
+	var best_area: Area2D = find_best_overlapping_area_for_placing(item, area_2d, mouse_position)
 	if !best_area:
-		item_node.global_position = _initial_position
+		item.global_position = _initial_position
 		transitioned.emit(idle_state)
 		return
 
 	var cell: GridCell = best_area.get_parent() as GridCell
-	Helpers.orphan(item_node)
-	cell.add_to_container(item_node)
-	item_node.position = Vector2.ZERO
-	transitioned.emit(immovable_state)
+	Helpers.orphan(item)
+	cell.add_to_container(item)
+	item.position = Vector2.ZERO
+	transitioned.emit(placed_movable_state)

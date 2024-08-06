@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Faction" load_steps=2 format=3 uid="uid://8nokjlwwy7bc"]
+
+[ext_resource type="Script" path="res://scripts/resources/faction.gd" id="1_ayitg"]
+
+[resource]
+script = ExtResource("1_ayitg")
+name = "World"
+color = Color(1, 0.731667, 0.3, 1)

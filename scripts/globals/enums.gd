@@ -23,3 +23,16 @@ static func direction_to_vec2(direction: Direction) -> Vector2:
 
 static func direction_to_angle(direction: Direction) -> float:
     return direction_to_vec2(direction).angle()
+
+static func get_next_clockwise_direction(direction: Direction) -> Direction:
+    match (direction):
+        Direction.Right:
+            return Direction.Bottom
+        Direction.Bottom:
+            return Direction.Left
+        Direction.Left:
+            return Direction.Top
+        Direction.Top:
+            return Direction.Right
+    
+    return Direction.None

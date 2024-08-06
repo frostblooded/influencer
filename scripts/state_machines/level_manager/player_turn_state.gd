@@ -14,6 +14,7 @@ func enter(_parent: Node) -> void:
     EventBus.start_turn.emit(player_faction)
     
 func exit(_parent: Node) -> void:
+    EventBus.player_turn_end.emit()
     Helpers.safe_disconnect(EventBus.on_end_turn_button_pressed, on_end_turn_button_pressed)
 
 func on_end_turn_button_pressed() -> void:

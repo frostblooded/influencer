@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://d01sd3nysrr3g"]
+
+[ext_resource type="PackedScene" uid="uid://d243sqiodghwd" path="res://scenes/items/item.tscn" id="1_5oebq"]
+[ext_resource type="Script" path="res://scripts/piston_item.gd" id="2_wseby"]
+[ext_resource type="Texture2D" uid="uid://dur15rb35a1ju" path="res://assets/piston.png" id="3_roia3"]
+
+[node name="PistonItem" node_paths=PackedStringArray("area_2d", "sprite_2d") instance=ExtResource("1_5oebq")]
+script = ExtResource("2_wseby")
+area_2d = NodePath("Area2D")
+sprite_2d = NodePath("Sprite2D")
+direction = null
+
+[node name="Sprite2D" parent="." index="1"]
+scale = Vector2(1, 1)
+texture = ExtResource("3_roia3")

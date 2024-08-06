@@ -42,3 +42,8 @@ func peek_container() -> PlaceableObject:
 		return _container.get_child(0)
 	else:
 		return null
+
+func pop_container() -> PlaceableObject:
+	var object: PlaceableObject = peek_container()
+	empty_container()
+	return object

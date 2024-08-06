@@ -5,23 +5,31 @@ extends Node
 
 @onready var _parent: Node = get_parent() as Node
 
-var _current_state: State:
-	set(val):
-		if _current_state:
-			_current_state.exit(_parent)
+var disabled: bool = false
 
-		_current_state = val
-		_current_state.enter(_parent)
+var current_state: State:
+	set(val):
+		if current_state:
+			current_state.exit(_parent)
+
+		current_state = val
+		current_state.enter(_parent)
 
 func _ready() -> void:
 	for child: State in get_children():
 		Helpers.safe_connect(child.transitioned, on_state_transitioned)
-	
-	_current_state = _initial_state
+
+	current_state = _initial_state
 
 func _process(delta: float) -> void:
-	if _current_state:
-		_current_state.state_process(delta, _parent)
+	if disabled:
+		return
+
+	if current_state:
+		current_state.state_process(delta, _parent)
 
 func on_state_transitioned(new_state: State) -> void:
-	_current_state = new_state
+	if disabled:
+		return
+
+	current_state = new_state

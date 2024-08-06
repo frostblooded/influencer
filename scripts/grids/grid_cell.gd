@@ -14,6 +14,13 @@ var neighbors: Array[Neighbor]
 var grid: Grid
 var grid_coordinates: Vector2
 
+func get_neighbor_cell_from_direction(direction: Enums.Direction) -> GridCell:
+    for neighbor: Neighbor in neighbors:
+        if neighbor.direction == direction:
+            return neighbor.cell
+    
+    return null
+
 func get_direction_from_neighbor_cell(neighbor_cell: GridCell) -> Enums.Direction:
     for neighbor: Neighbor in neighbors:
         if neighbor.cell == neighbor_cell:

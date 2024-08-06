@@ -26,21 +26,12 @@ var faction: Faction:
 var _enemies: Array[Enemy] = []
 
 var _planned_move_direction: Enums.Direction = Enums.Direction.None
-var _planned_move_target: GridCell = null
 
 func update_plan() -> void:
-    clear_target()
+    _planned_move_direction = Enums.Direction.None
     update_enemies()
     plan_move()
     update_action_sprite_2d()
-
-func clear_target() -> void:
-    _planned_move_direction = Enums.Direction.None
-    _planned_move_target = null
-
-func set_move_target(target_cell: GridCell) -> void:
-    _planned_move_target = target_cell
-    _planned_move_direction = cell.get_direction_from_neighbor_cell(target_cell)
 
 func plan_move() -> void:
     if _enemies.is_empty():
@@ -54,7 +45,7 @@ func plan_move() -> void:
 
     if closest_enemy:
         assert(!closest_enemy.path.is_empty())
-        set_move_target(closest_enemy.path[0])
+        _planned_move_direction = cell.get_direction_from_neighbor_cell(closest_enemy.path[0])
 
 func update_action_sprite_2d() -> void:
     if _planned_move_direction != Enums.Direction.None:
@@ -103,22 +94,19 @@ func update_enemies() -> void:
             path.append(neighbor.cell)
             queue.push_back(PathSearchStatus.new(neighbor.cell, path))
 
-func die() -> void:
-    queue_free()
-    cell.empty_container()
-
 func perform_move() -> void:
-    var other_cell_containee: PlaceableObject = _planned_move_target.peek_container()
+    var planned_move_target: GridCell = cell.get_neighbor_cell_from_direction(_planned_move_direction)
+    var other_cell_containee: PlaceableObject = planned_move_target.peek_container()
 
     if other_cell_containee:
         var other_cell_unit: Unit = other_cell_containee as Unit
         if other_cell_unit:
-            other_cell_unit.die()
+            other_cell_unit.destroy()
         else:
             var other_cell_item: Item = other_cell_containee as Item
             if other_cell_item:
                 return
 
     cell.empty_container()
-    _planned_move_target.add_to_container(self)
+    planned_move_target.add_to_container(self)
     action_sprite_2d.hide()
