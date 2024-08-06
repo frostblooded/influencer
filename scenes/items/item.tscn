@@ -17,13 +17,14 @@ gradient = SubResource("Gradient_w13t2")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o2xuv"]
 size = Vector2(64, 64)
 
-[node name="Item" type="Node2D" node_paths=PackedStringArray("state_machine") groups=["items"]]
+[node name="Item" type="Node2D" node_paths=PackedStringArray("state_machine", "placed_immovable_state") groups=["items"]]
 script = ExtResource("1_eok4o")
 state_machine = NodePath("StateMachine")
+placed_immovable_state = NodePath("StateMachine/PlacedImmovableState")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("_initial_state")]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_y7nqv")
-_initial_state = NodePath("IdleState")
+initial_state = NodePath("IdleState")
 
 [node name="IdleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("area_2d", "dragged_state")]
 script = ExtResource("3_8ojxu")

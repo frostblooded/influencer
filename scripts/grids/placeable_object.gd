@@ -3,6 +3,9 @@ extends Node2D
 
 var cell: GridCell
 
+func on_spawned_in_world() -> void:
+    pass
+
 func destroy() -> void:
     queue_free()
     cell.empty_container()

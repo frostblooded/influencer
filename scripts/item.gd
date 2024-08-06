@@ -2,6 +2,10 @@ class_name Item
 extends PlaceableObject
 
 @export var state_machine: StateMachine
+@export var placed_immovable_state: PlacedImmovableState
+
+func on_spawned_in_world() -> void:
+    state_machine.initial_state = placed_immovable_state
 
 func on_world_turn() -> void:
     pass

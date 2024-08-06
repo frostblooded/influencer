@@ -14,9 +14,9 @@
 script = ExtResource("1_1jpay")
 factions = Array[Resource("res://scripts/resources/faction.gd")]([ExtResource("4_vtj7t"), ExtResource("5_sugrq")])
 
-[node name="LevelManagerStateMachine" type="Node" parent="." node_paths=PackedStringArray("_initial_state")]
+[node name="LevelManagerStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("4_g1c6d")
-_initial_state = NodePath("PlayerTurnState")
+initial_state = NodePath("PlayerTurnState")
 
 [node name="PlayerTurnState" type="Node" parent="LevelManagerStateMachine" node_paths=PackedStringArray("next_state")]
 script = ExtResource("2_3xpb5")

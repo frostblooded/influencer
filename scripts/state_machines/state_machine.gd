@@ -1,7 +1,7 @@
 class_name StateMachine
 extends Node
 
-@export var _initial_state: State
+@export var initial_state: State
 
 @onready var _parent: Node = get_parent() as Node
 
@@ -17,9 +17,9 @@ var current_state: State:
 
 func _ready() -> void:
 	for child: State in get_children():
-		Helpers.safe_connect(child.transitioned, on_state_transitioned)
+		Helpers.safe_connect(child.transitioned, transition)
 
-	current_state = _initial_state
+	current_state = initial_state
 
 func _process(delta: float) -> void:
 	if disabled:
@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 	if current_state:
 		current_state.state_process(delta, _parent)
 
-func on_state_transitioned(new_state: State) -> void:
+func transition(new_state: State) -> void:
 	if disabled:
 		return
 
