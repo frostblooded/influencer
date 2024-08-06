@@ -1,0 +1,44 @@
+[gd_scene load_steps=13 format=3 uid="uid://cvvl8waaq4tuv"]
+
+[ext_resource type="PackedScene" uid="uid://cvvvodfer4c1a" path="res://scenes/levels/level_template.tscn" id="1_dr851"]
+[ext_resource type="PackedScene" uid="uid://c0ri27pmwche4" path="res://scenes/items/rock_item.tscn" id="6_yykwq"]
+[ext_resource type="Script" path="res://scripts/spawners/spawner.gd" id="7_kt6ui"]
+[ext_resource type="Resource" uid="uid://dxs1coccku8n1" path="res://resources/factions/green_faction.tres" id="9_6svwo"]
+[ext_resource type="PackedScene" uid="uid://bosldgi81a7pv" path="res://scenes/unit.tscn" id="10_ionkv"]
+[ext_resource type="Script" path="res://scripts/spawners/unit_spawner.gd" id="11_g2je1"]
+[ext_resource type="Resource" uid="uid://6rvy2hgst74q" path="res://resources/factions/red_faction.tres" id="12_qjqcs"]
+
+[sub_resource type="Resource" id="Resource_gq0g1"]
+script = ExtResource("11_g2je1")
+faction = ExtResource("9_6svwo")
+grid_coordinates = Vector2(0, 2)
+scene = ExtResource("10_ionkv")
+
+[sub_resource type="Resource" id="Resource_ha5vu"]
+script = ExtResource("11_g2je1")
+faction = ExtResource("12_qjqcs")
+grid_coordinates = Vector2(4, 2)
+scene = ExtResource("10_ionkv")
+
+[sub_resource type="Resource" id="Resource_1haxh"]
+script = ExtResource("7_kt6ui")
+grid_coordinates = Vector2(2, 1)
+scene = ExtResource("6_yykwq")
+
+[sub_resource type="Resource" id="Resource_5yeic"]
+script = ExtResource("7_kt6ui")
+grid_coordinates = Vector2(2, 2)
+scene = ExtResource("6_yykwq")
+
+[sub_resource type="Resource" id="Resource_6ghu6"]
+script = ExtResource("7_kt6ui")
+grid_coordinates = Vector2(2, 3)
+scene = ExtResource("6_yykwq")
+
+[node name="Level2" instance=ExtResource("1_dr851")]
+
+[node name="InventoryGrid" parent="." index="2"]
+starting_items = Array[PackedScene]([ExtResource("6_yykwq")])
+
+[node name="Grid" parent="." index="3"]
+spawners = Array[ExtResource("7_kt6ui")]([SubResource("Resource_gq0g1"), SubResource("Resource_ha5vu"), SubResource("Resource_1haxh"), SubResource("Resource_5yeic"), SubResource("Resource_6ghu6")])

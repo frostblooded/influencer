@@ -1,0 +1,194 @@
+[gd_scene load_steps=18 format=3 uid="uid://cvvvodfer4c1a"]
+
+[ext_resource type="Script" path="res://scripts/ui/faction_name_label.gd" id="1_ooeiq"]
+[ext_resource type="Script" path="res://scripts/ui/end_turn_button.gd" id="2_p0bx2"]
+[ext_resource type="Resource" uid="uid://babtx05nfgoc" path="res://resources/factions/player_faction.tres" id="3_b3jrh"]
+[ext_resource type="Script" path="res://scripts/ui/victory_screen_panel.gd" id="4_wyysi"]
+[ext_resource type="Script" path="res://scripts/grids/inventory_grid.gd" id="5_ckho3"]
+[ext_resource type="PackedScene" uid="uid://b7ad14at3ofrm" path="res://scenes/inventory_cell.tscn" id="6_2moao"]
+[ext_resource type="Script" path="res://scripts/grids/grid.gd" id="7_0gjoy"]
+[ext_resource type="PackedScene" uid="uid://dl1tj8dvgjcg2" path="res://scenes/grid_cell.tscn" id="8_y1axe"]
+[ext_resource type="Resource" uid="uid://dxs1coccku8n1" path="res://resources/factions/green_faction.tres" id="9_rib0v"]
+[ext_resource type="PackedScene" uid="uid://bosldgi81a7pv" path="res://scenes/unit.tscn" id="10_tx7xf"]
+[ext_resource type="Script" path="res://scripts/spawners/unit_spawner.gd" id="11_ewlvk"]
+[ext_resource type="Resource" uid="uid://6rvy2hgst74q" path="res://resources/factions/red_faction.tres" id="12_jf08l"]
+[ext_resource type="PackedScene" uid="uid://4q8tgyxbcj52" path="res://scenes/level_manager.tscn" id="13_64on8"]
+
+[sub_resource type="Gradient" id="Gradient_nvnxt"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.352941, 0.388235, 0.611765, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0k804"]
+gradient = SubResource("Gradient_nvnxt")
+
+[sub_resource type="Resource" id="Resource_gq0g1"]
+script = ExtResource("11_ewlvk")
+faction = ExtResource("9_rib0v")
+grid_coordinates = Vector2(0, 2)
+scene = ExtResource("10_tx7xf")
+
+[sub_resource type="Resource" id="Resource_ha5vu"]
+script = ExtResource("11_ewlvk")
+faction = ExtResource("12_jf08l")
+grid_coordinates = Vector2(4, 2)
+scene = ExtResource("10_tx7xf")
+
+[node name="LevelTemplate" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(288, 400)
+scale = Vector2(2.25, 800)
+texture = SubResource("GradientTexture1D_0k804")
+metadata/_edit_lock_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 21.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"HeaderLarge"
+theme_override_colors/font_color = Color(0.3, 1, 0.3, 1)
+text = "GREEN"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"HeaderLarge"
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+text = "RED"
+
+[node name="TurnContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/TurnContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="FactionNameLabel" type="Label" parent="CanvasLayer/Control/MarginContainer/TurnContainer/HBoxContainer"]
+layout_mode = 2
+text = "green"
+script = ExtResource("1_ooeiq")
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/TurnContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "turn"
+
+[node name="EndTurnButton" type="Button" parent="CanvasLayer/Control/MarginContainer/TurnContainer"]
+custom_minimum_size = Vector2(180, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+focus_mode = 0
+theme_override_font_sizes/font_size = 25
+text = "End turn"
+script = ExtResource("2_p0bx2")
+player_faction = ExtResource("3_b3jrh")
+
+[node name="VictoryScreenPanel" type="Panel" parent="CanvasLayer" node_paths=PackedStringArray("faction_label", "next_level_button")]
+custom_minimum_size = Vector2(200, 200)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_wyysi")
+faction_label = NodePath("VBoxContainer/FactionLabel")
+next_level_button = NodePath("VBoxContainer/Button")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VictoryScreenPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -59.5
+offset_top = -38.0
+offset_right = 59.5
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FactionLabel" type="Label" parent="CanvasLayer/VictoryScreenPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"HeaderLarge"
+theme_override_colors/font_color = Color(0.3, 1, 0.3, 1)
+text = "GREEN"
+
+[node name="VictoryLabel" type="Label" parent="CanvasLayer/VictoryScreenPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_type_variation = &"HeaderLarge"
+text = "Victory"
+
+[node name="Button" type="Button" parent="CanvasLayer/VictoryScreenPanel/VBoxContainer"]
+layout_mode = 2
+text = "next level"
+
+[node name="InventoryGrid" type="Node2D" parent="."]
+position = Vector2(80, 192)
+script = ExtResource("5_ckho3")
+
+[node name="InventoryCell" parent="InventoryGrid" instance=ExtResource("6_2moao")]
+
+[node name="InventoryCell2" parent="InventoryGrid" instance=ExtResource("6_2moao")]
+position = Vector2(104, 0)
+
+[node name="InventoryCell3" parent="InventoryGrid" instance=ExtResource("6_2moao")]
+position = Vector2(208, 0)
+
+[node name="InventoryCell4" parent="InventoryGrid" instance=ExtResource("6_2moao")]
+position = Vector2(312, 0)
+
+[node name="InventoryCell5" parent="InventoryGrid" instance=ExtResource("6_2moao")]
+position = Vector2(416, 0)
+
+[node name="Grid" type="Node2D" parent="."]
+position = Vector2(80, 312)
+script = ExtResource("7_0gjoy")
+cell_scene = ExtResource("8_y1axe")
+cell_x_diff = 104
+cell_y_diff = 104
+spawners = Array[Resource("res://scripts/spawners/spawner.gd")]([SubResource("Resource_gq0g1"), SubResource("Resource_ha5vu")])
+
+[node name="LevelManager" parent="." instance=ExtResource("13_64on8")]
