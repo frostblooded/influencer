@@ -1,0 +1,50 @@
+[gd_scene load_steps=15 format=3 uid="uid://brl75na3b1onh"]
+
+[ext_resource type="PackedScene" uid="uid://cvvvodfer4c1a" path="res://scenes/levels/level_template.tscn" id="1_wf8du"]
+[ext_resource type="PackedScene" uid="uid://c0ri27pmwche4" path="res://scenes/items/rock_item.tscn" id="2_kg2et"]
+[ext_resource type="PackedScene" uid="uid://d01sd3nysrr3g" path="res://scenes/items/piston_item.tscn" id="3_se527"]
+[ext_resource type="Resource" uid="uid://dxs1coccku8n1" path="res://resources/factions/green_faction.tres" id="4_bm1bw"]
+[ext_resource type="PackedScene" uid="uid://bosldgi81a7pv" path="res://scenes/unit.tscn" id="5_11ab2"]
+[ext_resource type="Script" path="res://scripts/spawners/unit_spawner.gd" id="6_t3i0w"]
+[ext_resource type="Resource" uid="uid://6rvy2hgst74q" path="res://resources/factions/red_faction.tres" id="7_8e544"]
+[ext_resource type="Script" path="res://scripts/spawners/spawner.gd" id="8_qfrmc"]
+
+[sub_resource type="Resource" id="Resource_gq0g1"]
+script = ExtResource("6_t3i0w")
+faction = ExtResource("4_bm1bw")
+grid_coordinates = Vector2(0, 2)
+scene = ExtResource("5_11ab2")
+
+[sub_resource type="Resource" id="Resource_ha5vu"]
+script = ExtResource("6_t3i0w")
+faction = ExtResource("7_8e544")
+grid_coordinates = Vector2(4, 2)
+scene = ExtResource("5_11ab2")
+
+[sub_resource type="Resource" id="Resource_5wwm8"]
+script = ExtResource("8_qfrmc")
+grid_coordinates = Vector2(1, 1)
+scene = ExtResource("2_kg2et")
+
+[sub_resource type="Resource" id="Resource_8abvh"]
+script = ExtResource("8_qfrmc")
+grid_coordinates = Vector2(3, 1)
+scene = ExtResource("2_kg2et")
+
+[sub_resource type="Resource" id="Resource_mpjb8"]
+script = ExtResource("8_qfrmc")
+grid_coordinates = Vector2(1, 3)
+scene = ExtResource("2_kg2et")
+
+[sub_resource type="Resource" id="Resource_ugthp"]
+script = ExtResource("8_qfrmc")
+grid_coordinates = Vector2(3, 3)
+scene = ExtResource("2_kg2et")
+
+[node name="Level3" instance=ExtResource("1_wf8du")]
+
+[node name="InventoryGrid" parent="." index="2"]
+starting_items = Array[PackedScene]([ExtResource("3_se527"), ExtResource("3_se527")])
+
+[node name="Grid" parent="." index="3"]
+spawners = Array[ExtResource("8_qfrmc")]([SubResource("Resource_gq0g1"), SubResource("Resource_ha5vu"), SubResource("Resource_5wwm8"), SubResource("Resource_8abvh"), SubResource("Resource_mpjb8"), SubResource("Resource_ugthp")])

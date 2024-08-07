@@ -37,6 +37,9 @@ scene = ExtResource("6_yykwq")
 
 [node name="Level2" instance=ExtResource("1_dr851")]
 
+[node name="VictoryScreenPanel" parent="CanvasLayer" index="1"]
+next_level_scene_path = "res://scenes/levels/level_3.tscn"
+
 [node name="InventoryGrid" parent="." index="2"]
 starting_items = Array[PackedScene]([ExtResource("6_yykwq")])
 
