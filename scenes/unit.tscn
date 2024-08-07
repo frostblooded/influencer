@@ -19,11 +19,10 @@ move_action_texture = ExtResource("2_41fv4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1.90735e-06, 1.90735e-06)
-scale = Vector2(3.5, 3.5)
 texture = ExtResource("1_b1kv1")
 
 [node name="FactionSprite2D" type="Sprite2D" parent="."]
-position = Vector2(42, -42)
+position = Vector2(40, -40)
 scale = Vector2(0.0625, 16.25)
 texture = SubResource("GradientTexture1D_bg3yp")
 
