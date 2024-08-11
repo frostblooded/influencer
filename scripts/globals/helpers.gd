@@ -45,3 +45,6 @@ static func create_1_color_gradient_texture(new_color: Color) -> GradientTexture
     texture.gradient.set_color(0, new_color)
     texture.gradient.remove_point(1)
     return texture
+
+static func empty_coroutine(tree: SceneTree) -> void:
+    await tree.create_timer(0).timeout

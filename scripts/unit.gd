@@ -5,6 +5,7 @@ extends PlaceableObject
 @export var action_sprite_2d: Sprite2D
 
 @export var move_action_texture: Texture2D
+@export var move_duration: float = 0.5
 
 class Enemy:
     var unit: Unit
@@ -28,7 +29,6 @@ var _enemies: Array[Enemy] = []
 var _planned_move_direction: Enums.Direction = Enums.Direction.None
 
 func update_plan() -> void:
-    _planned_move_direction = Enums.Direction.None
     update_enemies()
     plan_move()
     update_action_sprite_2d()
@@ -107,6 +107,13 @@ func perform_move() -> void:
             if other_cell_item:
                 return
 
-    cell.empty_container()
-    planned_move_target.add_to_container(self)
+    var tween: Tween = create_tween()
+    await tween.tween_property(self, "global_position", planned_move_target.global_position, move_duration).finished
+
+    position = Vector2.ZERO
+    cell.move_containee_to(planned_move_target)
+    reset_planning()
+
+func reset_planning() -> void:
     action_sprite_2d.hide()
+    _planned_move_direction = Enums.Direction.None

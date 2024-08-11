@@ -8,7 +8,7 @@ func on_spawned_in_world() -> void:
     state_machine.initial_state = placed_immovable_state
 
 func on_world_turn() -> void:
-    pass
+    await Helpers.empty_coroutine(get_tree())
 
 func can_be_moved() -> bool:
     var item_state: ItemState = state_machine.current_state as ItemState

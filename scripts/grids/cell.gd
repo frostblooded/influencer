@@ -8,42 +8,45 @@ extends Node2D
 @export var _container: Node2D
 
 func _ready() -> void:
-	Helpers.safe_connect(area_2d.mouse_entered, on_mouse_entered)
-	Helpers.safe_connect(area_2d.mouse_exited, on_mouse_exited)
+    Helpers.safe_connect(area_2d.mouse_entered, on_mouse_entered)
+    Helpers.safe_connect(area_2d.mouse_exited, on_mouse_exited)
 
-	default_sprite_2d.show()
-	hovered_sprite_2d.hide()
+    default_sprite_2d.show()
+    hovered_sprite_2d.hide()
 
 func on_mouse_entered() -> void:
-	default_sprite_2d.hide()
-	hovered_sprite_2d.show()
+    default_sprite_2d.hide()
+    hovered_sprite_2d.show()
 
 func on_mouse_exited() -> void:
-	default_sprite_2d.show()
-	hovered_sprite_2d.hide()
+    default_sprite_2d.show()
+    hovered_sprite_2d.hide()
 
 func add_to_container(node: Node) -> void:
-	assert(_container.get_child_count() == 0)
+    assert(_container.get_child_count() == 0)
 
-	var placeable_object: PlaceableObject = node as PlaceableObject
-	placeable_object.cell = self
-	_container.add_child(placeable_object)
+    var placeable_object: PlaceableObject = node as PlaceableObject
+    placeable_object.cell = self
+    _container.add_child(placeable_object)
 
 func empty_container() -> void:
-	if _container.get_child_count() == 0:
-		return
+    if _container.get_child_count() == 0:
+        return
 
-	var placeable_object: PlaceableObject = _container.get_child(0)
-	placeable_object.cell = null
-	_container.remove_child(placeable_object)
+    var placeable_object: PlaceableObject = _container.get_child(0)
+    placeable_object.cell = null
+    _container.remove_child(placeable_object)
 
 func peek_container() -> PlaceableObject:
-	if _container.get_child_count() == 1:
-		return _container.get_child(0)
-	else:
-		return null
+    if _container.get_child_count() == 1:
+        return _container.get_child(0)
+    else:
+        return null
 
 func pop_container() -> PlaceableObject:
-	var object: PlaceableObject = peek_container()
-	empty_container()
-	return object
+    var object: PlaceableObject = peek_container()
+    empty_container()
+    return object
+
+func move_containee_to(other: GridCell) -> void:
+    other.add_to_container(pop_container())
