@@ -48,3 +48,8 @@ static func create_1_color_gradient_texture(new_color: Color) -> GradientTexture
 
 static func empty_coroutine(tree: SceneTree) -> void:
     await tree.create_timer(0).timeout
+
+static func play_camera_shake(intensity: float, camera: Camera2D) -> void:
+    var noise: FastNoiseLite = FastNoiseLite.new()
+    var cameraOffset: float = noise.get_noise_1d(Time.get_ticks_msec()) * intensity
+    camera.offset = Vector2(cameraOffset, cameraOffset)

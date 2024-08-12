@@ -3,6 +3,7 @@ extends PlaceableObject
 
 @export var faction_sprite_2d: Sprite2D
 @export var action_sprite_2d: Sprite2D
+@export var animated_sprite_2d: AnimatedSprite2D
 
 @export var move_action_texture: Texture2D
 @export var move_duration: float = 0.5
@@ -106,7 +107,7 @@ func perform_move() -> void:
             else:
                 var other_cell_item: Item = other_cell_containee as Item
                 if other_cell_item:
-                    await play_failed_move_onto_unmovable_cell_animation(planned_move_target)
+                    await play_crash_animation(planned_move_target)
                     return
 
         var tween: Tween = create_tween()
@@ -117,15 +118,32 @@ func perform_move() -> void:
 
     reset_planning()
 
-func play_failed_move_onto_unmovable_cell_animation(unmovable_cell: GridCell) -> void:
+func play_crash_animation(unmovable_cell: GridCell) -> void:
     var initial_position: Vector2 = global_position
     var half_move: Vector2 = (unmovable_cell.global_position - initial_position) / 2
     var half_goal: Vector2 = initial_position + half_move
-    var crash_into_item_tween: Tween = create_tween()
-    crash_into_item_tween.tween_property(self, "global_position", half_goal, move_duration / 2)
-    crash_into_item_tween.chain()
-    crash_into_item_tween.tween_property(self, "global_position", initial_position, move_duration / 2)
-    await crash_into_item_tween.finished
+
+    var go_tween: Tween = create_tween()
+    go_tween.tween_property(self, "global_position", half_goal, move_duration / 2)
+    go_tween.tween_callback(animated_sprite_2d.play.bind("crash"))
+    await go_tween.finished
+
+    var rotation_tween: Tween = create_tween()
+    rotation_tween.tween_property(self, "rotation", -0.1, move_duration / 6)
+    rotation_tween.tween_property(self, "rotation", + 0.1, move_duration / 3)
+    rotation_tween.tween_property(self, "rotation", 0, move_duration / 6)
+
+    var camera_shake_tween: Tween = create_tween()
+    var camera: Camera2D = get_viewport().get_camera_2d()
+    camera_shake_tween.tween_method(Helpers.play_camera_shake.bind(camera), 5, 1, move_duration * 2 / 3)
+
+    await rotation_tween.finished
+    await camera_shake_tween.finished
+
+    var return_tween: Tween = create_tween()
+    return_tween.tween_property(self, "global_position", initial_position, move_duration / 2)
+    return_tween.tween_callback(animated_sprite_2d.play.bind("default"))
+    await return_tween.finished
 
 func reset_planning() -> void:
     action_sprite_2d.hide()

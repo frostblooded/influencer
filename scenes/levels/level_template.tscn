@@ -37,7 +37,7 @@ scene = ExtResource("10_tx7xf")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(288, 400)
-scale = Vector2(2.25, 800)
+scale = Vector2(400, 142222)
 texture = SubResource("GradientTexture1D_0k804")
 metadata/_edit_lock_ = true
 
@@ -192,3 +192,6 @@ cell_y_diff = 104
 spawners = Array[Resource("res://scripts/spawners/spawner.gd")]([SubResource("Resource_gq0g1"), SubResource("Resource_ha5vu")])
 
 [node name="LevelManager" parent="." instance=ExtResource("13_64on8")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(288, 400)

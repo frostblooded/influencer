@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bosldgi81a7pv"]
+[gd_scene load_steps=8 format=3 uid="uid://bosldgi81a7pv"]
 
 [ext_resource type="Texture2D" uid="uid://dgdlmbqptppwa" path="res://assets/soldier.png" id="1_b1kv1"]
 [ext_resource type="Script" path="res://scripts/unit.gd" id="1_evil8"]
 [ext_resource type="Texture2D" uid="uid://biumxxayrtuu5" path="res://assets/arrow.png" id="2_41fv4"]
+[ext_resource type="Texture2D" uid="uid://drnedfci7fub2" path="res://assets/soldier_crashed.png" id="4_4xm1d"]
 
 [sub_resource type="Gradient" id="Gradient_8qw5f"]
 offsets = PackedFloat32Array(0)
@@ -11,17 +12,33 @@ colors = PackedColorArray(1, 1, 1, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_bg3yp"]
 gradient = SubResource("Gradient_8qw5f")
 
-[node name="Unit" type="Node2D" node_paths=PackedStringArray("faction_sprite_2d", "action_sprite_2d") groups=["units"]]
+[sub_resource type="SpriteFrames" id="SpriteFrames_t7kq7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_4xm1d")
+}],
+"loop": true,
+"name": &"crash",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_b1kv1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Unit" type="Node2D" node_paths=PackedStringArray("faction_sprite_2d", "action_sprite_2d", "animated_sprite_2d") groups=["units"]]
 z_index = 5
 script = ExtResource("1_evil8")
 faction_sprite_2d = NodePath("FactionSprite2D")
 action_sprite_2d = NodePath("ActionSprite2D")
+animated_sprite_2d = NodePath("AnimatedSprite2D")
 move_action_texture = ExtResource("2_41fv4")
 move_duration = 0.35
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1.90735e-06, 1.90735e-06)
-texture = ExtResource("1_b1kv1")
 
 [node name="FactionSprite2D" type="Sprite2D" parent="."]
 position = Vector2(40, -40)
@@ -32,3 +49,6 @@ texture = SubResource("GradientTexture1D_bg3yp")
 z_index = 10
 texture = ExtResource("2_41fv4")
 offset = Vector2(50, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_t7kq7")
