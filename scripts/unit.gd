@@ -96,23 +96,36 @@ func update_enemies() -> void:
 
 func perform_move() -> void:
     var planned_move_target: GridCell = cell.get_neighbor_cell_from_direction(_planned_move_direction)
-    var other_cell_containee: PlaceableObject = planned_move_target.peek_container()
+    if planned_move_target:
+        var other_cell_containee: PlaceableObject = planned_move_target.peek_container()
 
-    if other_cell_containee:
-        var other_cell_unit: Unit = other_cell_containee as Unit
-        if other_cell_unit:
-            other_cell_unit.destroy()
-        else:
-            var other_cell_item: Item = other_cell_containee as Item
-            if other_cell_item:
-                return
+        if other_cell_containee:
+            var other_cell_unit: Unit = other_cell_containee as Unit
+            if other_cell_unit:
+                other_cell_unit.destroy()
+            else:
+                var other_cell_item: Item = other_cell_containee as Item
+                if other_cell_item:
+                    await play_failed_move_onto_unmovable_cell_animation(planned_move_target)
+                    return
 
-    var tween: Tween = create_tween()
-    await tween.tween_property(self, "global_position", planned_move_target.global_position, move_duration).finished
+        var tween: Tween = create_tween()
+        await tween.tween_property(self, "global_position", planned_move_target.global_position, move_duration).finished
 
-    position = Vector2.ZERO
-    cell.move_containee_to(planned_move_target)
+        position = Vector2.ZERO
+        cell.move_containee_to(planned_move_target)
+
     reset_planning()
+
+func play_failed_move_onto_unmovable_cell_animation(unmovable_cell: GridCell) -> void:
+    var initial_position: Vector2 = global_position
+    var half_move: Vector2 = (unmovable_cell.global_position - initial_position) / 2
+    var half_goal: Vector2 = initial_position + half_move
+    var crash_into_item_tween: Tween = create_tween()
+    crash_into_item_tween.tween_property(self, "global_position", half_goal, move_duration / 2)
+    crash_into_item_tween.chain()
+    crash_into_item_tween.tween_property(self, "global_position", initial_position, move_duration / 2)
+    await crash_into_item_tween.finished
 
 func reset_planning() -> void:
     action_sprite_2d.hide()

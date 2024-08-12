@@ -33,8 +33,8 @@ func on_world_turn() -> void:
     var tween: Tween = create_tween()
     await tween.tween_property(source_cell_object, "global_position", target_cell.global_position, move_duration).finished
 
-    source_cell.move_containee_to(target_cell)
     source_cell_object.position = Vector2.ZERO
+    source_cell.move_containee_to(target_cell)
 
 func handle_mouse_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
     if !event is InputEventMouseButton:
