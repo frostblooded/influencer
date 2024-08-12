@@ -17,3 +17,6 @@ func can_be_moved() -> bool:
 func is_placed_in_world() -> bool:
     var item_state: ItemState = state_machine.current_state as ItemState
     return item_state.is_placed_in_world()
+
+func on_unit_crash(_unit_move_direction: Enums.Direction) -> void:
+    pass

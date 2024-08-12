@@ -36,3 +36,16 @@ static func get_next_clockwise_direction(direction: Direction) -> Direction:
             return Direction.Right
     
     return Direction.None
+
+static func get_reverse_direction(direction: Direction) -> Direction:
+    match (direction):
+        Direction.Right:
+            return Direction.Left
+        Direction.Bottom:
+            return Direction.Top
+        Direction.Left:
+            return Direction.Right
+        Direction.Top:
+            return Direction.Bottom
+    
+    return Direction.None

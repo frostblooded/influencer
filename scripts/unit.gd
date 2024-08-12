@@ -107,7 +107,7 @@ func perform_move() -> void:
             else:
                 var other_cell_item: Item = other_cell_containee as Item
                 if other_cell_item:
-                    await play_crash_animation(planned_move_target)
+                    await play_crash_animation(planned_move_target, other_cell_item)
                     return
 
         var tween: Tween = create_tween()
@@ -118,7 +118,7 @@ func perform_move() -> void:
 
     reset_planning()
 
-func play_crash_animation(unmovable_cell: GridCell) -> void:
+func play_crash_animation(unmovable_cell: GridCell, unmovable_cell_item: Item) -> void:
     var initial_position: Vector2 = global_position
     var half_move: Vector2 = (unmovable_cell.global_position - initial_position) / 2
     var half_goal: Vector2 = initial_position + half_move
@@ -127,6 +127,8 @@ func play_crash_animation(unmovable_cell: GridCell) -> void:
     go_tween.tween_property(self, "global_position", half_goal, move_duration / 2)
     go_tween.tween_callback(animated_sprite_2d.play.bind("crash"))
     await go_tween.finished
+
+    unmovable_cell_item.on_unit_crash(_planned_move_direction)
 
     var rotation_tween: Tween = create_tween()
     rotation_tween.tween_property(self, "rotation", -0.1, move_duration / 6)

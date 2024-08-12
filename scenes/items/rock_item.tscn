@@ -1,15 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0ri27pmwche4"]
+[gd_scene load_steps=6 format=3 uid="uid://c0ri27pmwche4"]
 
 [ext_resource type="PackedScene" uid="uid://d243sqiodghwd" path="res://scenes/items/item.tscn" id="1_o63f2"]
+[ext_resource type="Texture2D" uid="uid://vjp7n6mvranj" path="res://assets/rock.png" id="2_aqd41"]
+[ext_resource type="Script" path="res://scripts/rock_item.gd" id="2_l3sva"]
 
-[sub_resource type="Gradient" id="Gradient_60wpy"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(0, 0, 0, 1)
+[sub_resource type="Curve" id="Curve_vcptq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_gdsk1"]
-gradient = SubResource("Gradient_60wpy")
+[sub_resource type="Gradient" id="Gradient_l8q0c"]
+colors = PackedColorArray(0.607843, 0.52549, 0.741176, 1, 1, 1, 1, 1)
 
-[node name="RockItem" instance=ExtResource("1_o63f2")]
+[node name="RockItem" node_paths=PackedStringArray("particles") instance=ExtResource("1_o63f2")]
+script = ExtResource("2_l3sva")
+particles = NodePath("CPUParticles2D")
 
 [node name="Sprite2D" parent="." index="1"]
-texture = SubResource("GradientTexture1D_gdsk1")
+scale = Vector2(1, 1)
+texture = ExtResource("2_aqd41")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." index="3"]
+z_index = 50
+emitting = false
+one_shot = true
+explosiveness = 1.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 250.0
+initial_velocity_max = 500.0
+angular_velocity_min = 20.0
+angular_velocity_max = 100.0
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_vcptq")
+color_ramp = SubResource("Gradient_l8q0c")
