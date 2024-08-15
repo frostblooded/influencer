@@ -22,7 +22,7 @@ func on_world_turn() -> void:
 
     if !target_cell:
         # Falls off the map and dies
-        source_cell_object.destroy()
+        await source_cell_object.destroy(direction)
         return
 
     var target_cell_object: PlaceableObject = target_cell.peek_container()

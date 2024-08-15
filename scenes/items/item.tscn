@@ -15,7 +15,7 @@ colors = PackedColorArray(1, 1, 1, 1)
 gradient = SubResource("Gradient_w13t2")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o2xuv"]
-size = Vector2(64, 64)
+size = Vector2(96, 96)
 
 [node name="Item" type="Node2D" node_paths=PackedStringArray("state_machine", "placed_immovable_state") groups=["items"]]
 script = ExtResource("1_eok4o")
