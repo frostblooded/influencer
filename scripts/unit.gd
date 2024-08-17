@@ -38,7 +38,7 @@ func plan_move() -> void:
     if _enemies.is_empty():
         return
 
-    var closest_enemy: Enemy
+    var closest_enemy: Enemy = null
 
     for enemy: Enemy in _enemies:
         if !closest_enemy or enemy.distance < closest_enemy.distance:

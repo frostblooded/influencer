@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cvvvodfer4c1a"]
+[gd_scene load_steps=19 format=3 uid="uid://cvvvodfer4c1a"]
 
 [ext_resource type="Script" path="res://scripts/ui/faction_name_label.gd" id="1_ooeiq"]
 [ext_resource type="Script" path="res://scripts/ui/end_turn_button.gd" id="2_p0bx2"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/grids/grid.gd" id="7_0gjoy"]
 [ext_resource type="PackedScene" uid="uid://dl1tj8dvgjcg2" path="res://scenes/grid_cell.tscn" id="8_y1axe"]
 [ext_resource type="Resource" uid="uid://dxs1coccku8n1" path="res://resources/factions/green_faction.tres" id="9_rib0v"]
+[ext_resource type="Script" path="res://scripts/spawners/spawner.gd" id="9_wdqpf"]
 [ext_resource type="PackedScene" uid="uid://bosldgi81a7pv" path="res://scenes/unit.tscn" id="10_tx7xf"]
 [ext_resource type="Script" path="res://scripts/spawners/unit_spawner.gd" id="11_ewlvk"]
 [ext_resource type="Resource" uid="uid://6rvy2hgst74q" path="res://resources/factions/red_faction.tres" id="12_jf08l"]
@@ -189,7 +190,7 @@ script = ExtResource("7_0gjoy")
 cell_scene = ExtResource("8_y1axe")
 cell_x_diff = 104
 cell_y_diff = 104
-spawners = Array[Resource("res://scripts/spawners/spawner.gd")]([SubResource("Resource_gq0g1"), SubResource("Resource_ha5vu")])
+spawners = Array[ExtResource("9_wdqpf")]([SubResource("Resource_gq0g1"), SubResource("Resource_ha5vu")])
 
 [node name="LevelManager" parent="." instance=ExtResource("13_64on8")]
 
