@@ -6,3 +6,4 @@
 script = ExtResource("1_8nv7x")
 name = "Red"
 color = Color(1, 0.301961, 0.301961, 1)
+has_reputation = true

@@ -6,6 +6,13 @@ extends Node
 func _enter_tree() -> void:
     Helpers.safe_connect(EventBus.performed_actions, on_performed_actions)
 
+func _ready() -> void:
+    for faction: Faction in factions:
+        if faction.has_reputation:
+            ReputationManager.register_faction(faction)
+    
+    EventBus.level_start.emit()
+
 func on_performed_actions() -> void:
     var unit_nodes: Array[Node] = get_tree().get_nodes_in_group("units")
     var factions_alive: Dictionary = {}

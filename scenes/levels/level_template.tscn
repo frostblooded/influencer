@@ -1,5 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://cvvvodfer4c1a"]
+[gd_scene load_steps=20 format=3 uid="uid://cvvvodfer4c1a"]
 
+[ext_resource type="Script" path="res://scripts/ui/reputation_progress_bar.gd" id="1_mwnmq"]
 [ext_resource type="Script" path="res://scripts/ui/faction_name_label.gd" id="1_ooeiq"]
 [ext_resource type="Script" path="res://scripts/ui/end_turn_button.gd" id="2_p0bx2"]
 [ext_resource type="Resource" uid="uid://babtx05nfgoc" path="res://resources/factions/player_faction.tres" id="3_b3jrh"]
@@ -57,7 +58,7 @@ mouse_filter = 1
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 21.0
+offset_bottom = 110.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -65,48 +66,54 @@ theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"HeaderLarge"
 theme_override_colors/font_color = Color(0.3, 1, 0.3, 1)
 text = "GREEN"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_vertical = 4
+value = 30.0
+show_percentage = false
+script = ExtResource("1_mwnmq")
+faction = ExtResource("9_rib0v")
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer2"]
+[node name="TurnContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"HeaderLarge"
-theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
-text = "RED"
-
-[node name="TurnContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/TurnContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/TurnContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="FactionNameLabel" type="Label" parent="CanvasLayer/Control/MarginContainer/TurnContainer/HBoxContainer"]
+[node name="FactionNameLabel" type="Label" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/TurnContainer/HBoxContainer"]
 layout_mode = 2
 text = "green"
 script = ExtResource("1_ooeiq")
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/TurnContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/TurnContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "turn"
 
-[node name="EndTurnButton" type="Button" parent="CanvasLayer/Control/MarginContainer/TurnContainer"]
+[node name="EndTurnButton" type="Button" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/TurnContainer"]
 custom_minimum_size = Vector2(180, 70)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -116,6 +123,31 @@ theme_override_font_sizes/font_size = 25
 text = "End turn"
 script = ExtResource("2_p0bx2")
 player_faction = ExtResource("3_b3jrh")
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"HeaderLarge"
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+text = "RED"
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer2"]
+layout_mode = 2
+value = 73.0
+show_percentage = false
+script = ExtResource("1_mwnmq")
+faction = ExtResource("12_jf08l")
 
 [node name="VictoryScreenPanel" type="Panel" parent="CanvasLayer" node_paths=PackedStringArray("faction_label", "next_level_button")]
 custom_minimum_size = Vector2(200, 200)

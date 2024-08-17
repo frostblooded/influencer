@@ -6,3 +6,4 @@
 script = ExtResource("1_tlpxk")
 name = "Green"
 color = Color(0.301961, 1, 0.301961, 1)
+has_reputation = true
