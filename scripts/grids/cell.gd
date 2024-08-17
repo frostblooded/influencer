@@ -49,4 +49,6 @@ func pop_container() -> PlaceableObject:
     return object
 
 func move_containee_to(other: GridCell) -> void:
-    other.add_to_container(pop_container())
+    var object: PlaceableObject = pop_container()
+    object.position = Vector2.ZERO
+    other.add_to_container(object)

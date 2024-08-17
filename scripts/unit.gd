@@ -96,6 +96,8 @@ func update_enemies() -> void:
             queue.push_back(PathSearchStatus.new(neighbor.cell, path))
 
 func perform_move() -> void:
+    action_sprite_2d.hide()
+
     var planned_move_target: GridCell = cell.get_neighbor_cell_from_direction(_planned_move_direction)
     if planned_move_target:
         var other_cell_containee: PlaceableObject = planned_move_target.peek_container()
@@ -103,10 +105,10 @@ func perform_move() -> void:
         if other_cell_containee:
             var other_cell_unit: Unit = other_cell_containee as Unit
             if other_cell_unit:
-                var shove_tween: Tween = create_tween()
-                shove_tween.tween_property(self, "global_position", other_cell_unit.global_position, 0.15)
-                await shove_tween.finished
-                await other_cell_unit.destroy(_planned_move_direction)
+                await play_kill_other_unit_animation(other_cell_unit, _planned_move_direction)
+                other_cell_unit.destroy()
+                cell.move_containee_to(planned_move_target)
+                return
             else:
                 var other_cell_item: Item = other_cell_containee as Item
                 if other_cell_item:
@@ -114,12 +116,26 @@ func perform_move() -> void:
                     return
 
         var tween: Tween = create_tween()
-        await tween.tween_property(self, "global_position", planned_move_target.global_position, move_duration).finished
+        tween.tween_property(self, "global_position", planned_move_target.global_position, move_duration)
+        await tween.finished
 
-        position = Vector2.ZERO
         cell.move_containee_to(planned_move_target)
 
-    reset_planning()
+func play_kill_other_unit_animation(unit: Unit, direction: Enums.Direction) -> void:
+    var move_vector: Vector2 = unit.global_position - global_position
+    var half_move_goal: Vector2 = global_position + move_vector / 2
+
+    var first_half_move_tween: Tween = create_tween()
+    first_half_move_tween.tween_property(self, "global_position", half_move_goal, move_duration / 4)
+    await first_half_move_tween.finished
+
+    var destroy_animation_promise: Promise = Promise.new()
+    unit.play_destroy_animation(direction, destroy_animation_promise)
+
+    var second_half_move_tween: Tween = create_tween()
+    second_half_move_tween.tween_property(self, "global_position", unit.global_position, move_duration / 4)
+    await second_half_move_tween.finished
+    await destroy_animation_promise.async_awaiter()
 
 func play_crash_animation(unmovable_cell: GridCell, unmovable_cell_item: Item) -> void:
     var initial_position: Vector2 = global_position
@@ -150,27 +166,6 @@ func play_crash_animation(unmovable_cell: GridCell, unmovable_cell_item: Item) -
     return_tween.tween_callback(animated_sprite_2d.play.bind("default"))
     await return_tween.finished
 
-func reset_planning() -> void:
-    action_sprite_2d.hide()
-    _planned_move_direction = Enums.Direction.None
-
-func play_destroy_animation(direction: Enums.Direction) -> void:
+func play_destroy_animation(direction: Enums.Direction, promise: Promise) -> void:
     faction_sprite_2d.hide()
-
-    var rotation_tween: Tween = create_tween()
-    rotation_tween.tween_property(self, "rotation", 3 * TAU, 0.5).as_relative()
-
-    var scaling_tween: Tween = create_tween()
-    scaling_tween.tween_property(self, "scale", Vector2.ZERO, 0.5)
-
-    var translating_tween: Tween = create_tween()
-    var direction_vec: Vector2 = Enums.direction_to_vec2(direction)
-    translating_tween.tween_property(self, "global_position", direction_vec * 400, 0.5).as_relative()
-
-    await rotation_tween.finished
-    await scaling_tween.finished
-    await translating_tween.finished
-
-func destroy(direction: Enums.Direction) -> void:
-    await play_destroy_animation(direction)
-    super.destroy(direction)
+    super.play_destroy_animation(direction, promise)

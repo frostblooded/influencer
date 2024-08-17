@@ -8,7 +8,6 @@
 script = ExtResource("2_wseby")
 area_2d = NodePath("Area2D")
 sprite_2d = NodePath("Sprite2D")
-direction = 2
 move_duration = 0.3
 
 [node name="Sprite2D" parent="." index="1"]
