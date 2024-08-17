@@ -116,7 +116,8 @@ func perform_move() -> void:
                     return
 
         var tween: Tween = create_tween()
-        tween.tween_property(self, "global_position", planned_move_target.global_position, move_duration)
+        tween.tween_property(self, "global_position", planned_move_target.global_position, move_duration) \
+            .set_trans(Tween.TRANS_QUAD)
         await tween.finished
 
         cell.move_containee_to(planned_move_target)
@@ -125,16 +126,13 @@ func play_kill_other_unit_animation(unit: Unit, direction: Enums.Direction) -> v
     var move_vector: Vector2 = unit.global_position - global_position
     var half_move_goal: Vector2 = global_position + move_vector / 2
 
-    var first_half_move_tween: Tween = create_tween()
-    first_half_move_tween.tween_property(self, "global_position", half_move_goal, move_duration / 4)
-    await first_half_move_tween.finished
-
     var destroy_animation_promise: Promise = Promise.new()
-    unit.play_destroy_animation(direction, destroy_animation_promise)
 
-    var second_half_move_tween: Tween = create_tween()
-    second_half_move_tween.tween_property(self, "global_position", unit.global_position, move_duration / 4)
-    await second_half_move_tween.finished
+    var tween: Tween = create_tween()
+    tween.tween_property(self, "global_position", half_move_goal, move_duration / 4)
+    tween.tween_callback(unit.play_destroy_animation.bind(direction, destroy_animation_promise))
+    tween.tween_property(self, "global_position", unit.global_position, move_duration / 4)
+    await tween.finished
     await destroy_animation_promise.async_awaiter()
 
 func play_crash_animation(unmovable_cell: GridCell, unmovable_cell_item: Item) -> void:

@@ -53,3 +53,7 @@ static func play_camera_shake(intensity: float, camera: Camera2D) -> void:
     var noise: FastNoiseLite = FastNoiseLite.new()
     var cameraOffset: float = noise.get_noise_1d(Time.get_ticks_msec()) * intensity
     camera.offset = Vector2(cameraOffset, cameraOffset)
+
+static func complete_and_kill_tween(tween: Tween) -> void:
+    tween.custom_step(INF)
+    tween.kill()

@@ -6,6 +6,7 @@ extends Item
 @export var move_duration: float = 0.3
 
 var _direction: Enums.Direction = Enums.Direction.Right
+var _change_direction_tween: Tween
 
 func _ready() -> void:
     Helpers.safe_connect(area_2d.input_event, handle_mouse_event)
@@ -60,4 +61,12 @@ func handle_mouse_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> 
 
 func change_direction_clockwise() -> void:
     _direction = Enums.get_next_clockwise_direction(_direction)
-    sprite_2d.rotation = Enums.direction_to_angle(_direction)
+
+    if (_change_direction_tween):
+        Helpers.complete_and_kill_tween(_change_direction_tween)
+    
+    _change_direction_tween = create_tween()
+    _change_direction_tween.tween_property(sprite_2d, "rotation", PI / 2, 0.5) \
+        .as_relative() \
+        .set_trans(Tween.TRANS_BACK) \
+        .set_ease(Tween.EASE_OUT)
