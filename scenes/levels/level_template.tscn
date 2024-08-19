@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dl1tj8dvgjcg2" path="res://scenes/grid_cell.tscn" id="8_y1axe"]
 [ext_resource type="Resource" uid="uid://dxs1coccku8n1" path="res://resources/factions/green_faction.tres" id="9_rib0v"]
 [ext_resource type="Script" path="res://scripts/spawners/spawner.gd" id="9_wdqpf"]
-[ext_resource type="PackedScene" uid="uid://bosldgi81a7pv" path="res://scenes/unit.tscn" id="10_tx7xf"]
+[ext_resource type="PackedScene" uid="uid://bosldgi81a7pv" path="res://scenes/units/unit.tscn" id="10_tx7xf"]
 [ext_resource type="Script" path="res://scripts/spawners/unit_spawner.gd" id="11_ewlvk"]
 [ext_resource type="Resource" uid="uid://6rvy2hgst74q" path="res://resources/factions/red_faction.tres" id="12_jf08l"]
 [ext_resource type="PackedScene" uid="uid://4q8tgyxbcj52" path="res://scenes/level_manager.tscn" id="13_64on8"]

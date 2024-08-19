@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c0ri27pmwche4" path="res://scenes/items/rock_item.tscn" id="2_kg2et"]
 [ext_resource type="PackedScene" uid="uid://d01sd3nysrr3g" path="res://scenes/items/piston_item.tscn" id="3_se527"]
 [ext_resource type="Resource" uid="uid://dxs1coccku8n1" path="res://resources/factions/green_faction.tres" id="4_bm1bw"]
-[ext_resource type="PackedScene" uid="uid://bosldgi81a7pv" path="res://scenes/unit.tscn" id="5_11ab2"]
+[ext_resource type="PackedScene" uid="uid://bosldgi81a7pv" path="res://scenes/units/unit.tscn" id="5_11ab2"]
 [ext_resource type="Script" path="res://scripts/spawners/unit_spawner.gd" id="6_t3i0w"]
 [ext_resource type="Resource" uid="uid://6rvy2hgst74q" path="res://resources/factions/red_faction.tres" id="7_8e544"]
 [ext_resource type="Script" path="res://scripts/spawners/spawner.gd" id="8_qfrmc"]
@@ -42,6 +42,9 @@ grid_coordinates = Vector2(3, 3)
 scene = ExtResource("2_kg2et")
 
 [node name="Level3" instance=ExtResource("1_wf8du")]
+
+[node name="VictoryScreenPanel" parent="CanvasLayer" index="1"]
+next_level_scene_path = "res://scenes/levels/level_4.tscn"
 
 [node name="InventoryGrid" parent="." index="2"]
 starting_items = Array[PackedScene]([ExtResource("3_se527"), ExtResource("3_se527")])

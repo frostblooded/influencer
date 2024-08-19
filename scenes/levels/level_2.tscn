@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c0ri27pmwche4" path="res://scenes/items/rock_item.tscn" id="6_yykwq"]
 [ext_resource type="Script" path="res://scripts/spawners/spawner.gd" id="7_kt6ui"]
 [ext_resource type="Resource" uid="uid://dxs1coccku8n1" path="res://resources/factions/green_faction.tres" id="9_6svwo"]
-[ext_resource type="PackedScene" uid="uid://bosldgi81a7pv" path="res://scenes/unit.tscn" id="10_ionkv"]
+[ext_resource type="PackedScene" uid="uid://bosldgi81a7pv" path="res://scenes/units/unit.tscn" id="10_ionkv"]
 [ext_resource type="Script" path="res://scripts/spawners/unit_spawner.gd" id="11_g2je1"]
 [ext_resource type="Resource" uid="uid://6rvy2hgst74q" path="res://resources/factions/red_faction.tres" id="12_qjqcs"]
 

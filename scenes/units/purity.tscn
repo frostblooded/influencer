@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7hnh6ahswgh2"]
+
+[ext_resource type="PackedScene" uid="uid://bosldgi81a7pv" path="res://scenes/units/unit.tscn" id="1_2qey1"]
+[ext_resource type="Texture2D" uid="uid://cu6ad75jyrma3" path="res://icon.svg" id="2_ylu6t"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fnqu8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ylu6t")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Purity" instance=ExtResource("1_2qey1")]
+can_move = false
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_fnqu8")

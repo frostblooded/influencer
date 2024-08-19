@@ -7,6 +7,7 @@ extends PlaceableObject
 
 @export var move_action_texture: Texture2D
 @export var move_duration: float = 0.5
+@export var can_move: bool = true
 
 class Enemy:
     var unit: Unit
@@ -30,6 +31,9 @@ var _enemies: Array[Enemy] = []
 var _planned_move_direction: Enums.Direction = Enums.Direction.None
 
 func update_plan() -> void:
+    if !can_move:
+        return
+
     update_enemies()
     plan_move()
     update_action_sprite_2d()
@@ -84,9 +88,13 @@ func update_enemies() -> void:
 
         var placeable_object: PlaceableObject = current_cell.peek_container()
         var unit: Unit = placeable_object as Unit
+
         if unit:
             if unit != self:
-                _enemies.push_back(Enemy.new(unit, current_path))
+                if unit.faction == faction:
+                    continue
+                else:
+                    _enemies.push_back(Enemy.new(unit, current_path))
         elif placeable_object != null:
             continue
         
@@ -96,6 +104,9 @@ func update_enemies() -> void:
             queue.push_back(PathSearchStatus.new(neighbor.cell, path))
 
 func perform_move() -> void:
+    if !can_move:
+        return
+
     action_sprite_2d.hide()
 
     var planned_move_target: GridCell = cell.get_neighbor_cell_from_direction(_planned_move_direction)
