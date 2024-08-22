@@ -13,10 +13,27 @@ var letter_time: float = 0.03
 var space_time: float = 0.06
 var punctuation_time: float = 0.2
 
-signal finished_displaying
+var tracked_node: Node2D
 
 func _ready() -> void:
 	timer.timeout.connect(_display_letter)
+
+func _process(_delta: float) -> void:
+	if !is_instance_valid(tracked_node):
+		tracked_node = null
+
+	update_position()
+
+func update_position() -> void:
+	if !tracked_node:
+		return
+
+	global_position = tracked_node.global_position
+	global_position.x -= size.x / 2
+	global_position.y -= size.y + 44
+
+	var screen_rect: Rect2 = get_viewport().get_visible_rect()
+	global_position = global_position.clamp(Vector2.ZERO, screen_rect.size)
 
 func display_text(text_to_display: String) -> void:
 	text = text_to_display
@@ -31,8 +48,7 @@ func display_text(text_to_display: String) -> void:
 		await resized # wait for y resize
 		custom_minimum_size.y = size.y
 	
-	global_position.x -= size.x / 2
-	global_position.y -= size.y + 44
+	update_position()
 
 	label.text = ""
 	_display_letter()
@@ -42,7 +58,6 @@ func _display_letter() -> void:
 
 	letter_index += 1
 	if letter_index >= text.length():
-		finished_displaying.emit()
 		return
 	
 	match text[letter_index]:

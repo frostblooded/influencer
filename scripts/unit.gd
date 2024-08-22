@@ -104,6 +104,8 @@ func update_enemies() -> void:
             queue.push_back(PathSearchStatus.new(neighbor.cell, path))
 
 func perform_move() -> void:
+    DialogueManager.start_dialogue(self, ["Well, hello there, pretty lady. What can I do you for today?", "Oh, I get it. You are the silent, mysterious type.", "I like that. ;)"])
+
     if !can_move:
         return
 
