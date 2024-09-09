@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/Witch Magic Italic.otf-77145b38bafe0123e75e24
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48
